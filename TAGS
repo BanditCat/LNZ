@@ -1,0 +1,126 @@
+
+lnz.hpp,774
+#define LNZ_LNZ_H29,1732
+using u8 36,1831
+using u16 37,1857
+using u32 38,1889
+using u64 39,1915
+using s8 40,1951
+using s16 41,1975
+using s32 42,2005
+using s64 43,2029
+using f32 44,2063
+using f64 45,2082
+using lnzIndex 80,3151
+inline std::string asString(84,3218
+constexpr size_t fileBufferSize 91,3335
+class lnzException 99,3551
+  inline lnzException(lnzException::lnzException101,3603
+  inline virtual ~lnzException(lnzException::~lnzException102,3675
+  inline virtual const char* what(lnzException::what103,3725
+  std::string message;lnzException::message107,3828
+class lnzFileException 110,3855
+  inline lnzFileException(lnzFileException::lnzFileException112,3909
+  inline virtual ~lnzFileException(lnzFileException::~lnzFileException113,3990
+
+os.hpp,1087
+void* operator new(operator new30,1813
+void* operator new[](operator new[]31,1876
+void* operator new(operator new33,1948
+void* operator new[](operator new[]34,2002
+void* operator new(operator new37,2084
+void* operator new[](operator new[]38,2146
+void operator delete(operator delete39,2210
+void operator delete[](operator delete[]40,2250
+class OS{OS42,2293
+  static void die(OS::die45,2339
+  static bool yesOrNo(OS::yesOrNo47,2471
+  static bool setClip(OS::setClip50,2633
+  static std::string getStandardIn(OS::getStandardIn54,2837
+  static std::string getFile(OS::getFile57,3019
+  static void putFile(OS::putFile60,3207
+  static void putStandardOut(OS::putStandardOut63,3392
+  static void* lnzmalloc(OS::lnzmalloc67,3559
+  static void lnzfree(OS::lnzfree68,3604
+  static inline const size_t& getMallocCount(OS::getMallocCount70,3658
+  static inline const size_t& getFreeCount(OS::getFreeCount73,3750
+  static size_t mallocCount;OS::mallocCount79,3868
+  static size_t freeCount;OS::freeCount80,3897
+  OS(OS::OS83,3932
+  ~OS(OS::~OS84,3949
+
+parse.hpp,270
+#define LNZ_PARSE_H28,1713
+class Parser{Parser31,1775
+  Parser(Parser::Parser33,1797
+  Parser(Parser::Parser34,1818
+  ~Parser(Parser::~Parser35,1854
+  void insert(Parser::insert37,1877
+  struct pParser;Parser::pParser39,1932
+  pParser* p;Parser::p40,1950
+
+strings.hpp,1414
+struct strings{strings26,1791
+  static constexpr const char* expressionFlag strings::expressionFlag27,1807
+  static constexpr const char* outFileFlag strings::outFileFlag28,1861
+  static constexpr const char* helpFlag strings::helpFlag29,1912
+  static constexpr const char* expressionFlagError strings::expressionFlagError30,1960
+  static constexpr const char* outFileFlagError strings::outFileFlagError32,2065
+  static constexpr const char* commandLineExpression strings::commandLineExpression34,2164
+  static constexpr const char* usageMessage strings::usageMessage36,2251
+  static constexpr const char* fileOpenError strings::fileOpenError47,2989
+  static constexpr const char* fileReadError strings::fileReadError48,3061
+  static constexpr const char* fileWriteError strings::fileWriteError49,3133
+  static constexpr const char* fileExistsError strings::fileExistsError51,3241
+  static constexpr const char* memoryError strings::memoryError53,3359
+  static constexpr const char* emptyFileName strings::emptyFileName55,3455
+  static constexpr const char* standardInput strings::standardInput57,3572
+  static constexpr const char* standardOutput strings::standardOutput58,3637
+  static constexpr const char* yesOrNoPrompt strings::yesOrNoPrompt59,3704
+  static constexpr const char yesChar strings::yesChar60,3761
+  static constexpr const char noChar strings::noChar61,3806
+
+main.cpp,47
+using namespace std;38,1813
+int main(41,1836
+
+os.cpp,755
+using namespace std;34,1753
+size_t OS::mallocCount 38,1799
+size_t OS::freeCount 39,1827
+void* OS::lnzmalloc(44,1863
+void OS::lnzfree(56,2071
+void* operator new(operator new64,2188
+void* operator new[](operator new[]67,2288
+void* operator new(operator new71,2395
+void* operator new[](operator new[]74,2485
+void* operator new[](operator new[]79,2604
+void operator delete[](operator delete[]82,2700
+void* operator new(operator new85,2768
+void operator delete(operator delete88,2862
+void OS::die(96,3045
+string OS::getFile(101,3180
+string OS::getStandardIn(120,3810
+void OS::putFile(133,4252
+void OS::putStandardOut(147,4786
+bool OS::yesOrNo(166,5377
+bool OS::setClip(172,5611
+bool OS::yesOrNo(204,6312
+bool OS::setClip(214,6656
+
+parse.cpp,664
+using namespace std;34,1766
+struct Parser::pParser{Parser::pParser37,1789
+  unordered_map<Parser::pParser::unordered_map38,1813
+  unordered_map< string, lnzIndex > symbols;Parser::pParser::symbols38,1813
+  deque< string > reverseSymbols;Parser::pParser::reverseSymbols39,1858
+  lnzIndex refs;Parser::pParser::refs40,1892
+  void insert(Parser::pParser::insert42,1910
+  pParser* deref(Parser::pParser::deref46,2039
+  pParser(Parser::pParser::pParser55,2182
+  pParser(Parser::pParser::pParser59,2308
+  ~pParser(Parser::pParser::~pParser63,2481
+Parser::Parser(69,2569
+Parser::Parser(74,2681
+Parser::~Parser(79,2803
+void Parser::insert(83,2913
