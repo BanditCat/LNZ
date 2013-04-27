@@ -12,7 +12,7 @@
 // details.                                                                   //
 //                                                                            //
 // You should have received a copy of the GNU General Public License along    //
-// with LNZ, located in the file GPL.txt.  If not, see                        //
+// with LNZ, located in the file LICENSE.  If not, see                        //
 // <http://www.gnu.org/licenses/>.                                            //
 //                                                                            //
 // Alternative licensing terms may be available for a fee, contact Jon DuBois //
@@ -48,31 +48,31 @@ using f64 = double;
 
 // Limit checks.
 #if CHAR_BIT != 8 
-#error Alien build envioronment, check lnz.h for correct typedefs.
+#error Alien build environment, check lnz.h for correct typedefs.
 #endif 
 #if INT_MAX != 2147483647 || INT_MIN != -2147483648
-#error Alien build envioronment, check lnz.h for correct typedefs.
+#error Alien build environment, check lnz.h for correct typedefs.
 #endif 
 #if UINT_MAX != 4294967295 
-#error Alien build envioronment, check lnz.h for correct typedefs.
+#error Alien build environment, check lnz.h for correct typedefs.
 #endif 
 #if SHRT_MAX != 32767 || SHRT_MIN != -32768 
-#error Alien build envioronment, check lnz.h for correct typedefs.
+#error Alien build environment, check lnz.h for correct typedefs.
 #endif 
 #if USHRT_MAX != 65535 
-#error Alien build envioronment, check lnz.h for correct typedefs.
+#error Alien build environment, check lnz.h for correct typedefs.
 #endif 
 #if SCHAR_MAX != 127 || SCHAR_MIN != -128
-#error Alien build envioronment, check lnz.h for correct typedefs.
+#error Alien build environment, check lnz.h for correct typedefs.
 #endif 
 #if UCHAR_MAX != 255 
-#error Alien build envioronment, check lnz.h for correct typedefs.
+#error Alien build environment, check lnz.h for correct typedefs.
 #endif 
 #if LLONG_MAX != 9223372036854775807ll
-#error Alien build envioronment, check lnz.h for correct typedefs.
+#error Alien build environment, check lnz.h for correct typedefs.
 #endif 
 #if ULLONG_MAX != 18446744073709551615lu
-#error Alien build envioronment, check lnz.h for correct typedefs.
+#error Alien build environment, check lnz.h for correct typedefs.
 #endif 
 
 

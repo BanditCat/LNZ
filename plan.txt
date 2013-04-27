@@ -12,27 +12,31 @@
 // details.                                                                   //
 //                                                                            //
 // You should have received a copy of the GNU General Public License along    //
-// with LNZ, located in the file GPL.txt.  If not, see                        //
+// with LNZ, located in the file LICENSE.  If not, see                        //
 // <http://www.gnu.org/licenses/>.                                            //
 //                                                                            //
 // Alternative licensing terms may be available for a fee, contact Jon DuBois //
 // (bcj1980@gmail.com) for details.                                           //
 ////////////////////////////////////////////////////////////////////////////////
 
+Unit tests?
+
 THE POINT: A functional language that runs in parallel across all cores and
 GPUs automatically.
+
+Spell check and warranty boilerplate to help message.
 
 
 
 No repl, who uses repls anyways?
 
-Formatting: spaces everywhere, braces on same line, everything 80 coloumns or 
+Formatting: spaces everywhere, braces on same line, everything 80 columns or 
 less
 
 
 write custom exceptions and handle them so OS::die throws
 
-Rule 1) Exception-saftey: all functions in all headers have either noexcept or 
+Rule 1) Exception-safety: all functions in all headers have either noexcept or 
 documentation saying what they throw.
 
 Use DEBUG macro to enable cpu-time reporting and dieing for exception safety

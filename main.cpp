@@ -12,7 +12,7 @@
 // details.                                                                   //
 //                                                                            //
 // You should have received a copy of the GNU General Public License along    //
-// with LNZ, located in the file GPL.txt.  If not, see                        //
+// with LNZ, located in the file LICENSE.  If not, see                        //
 // <http://www.gnu.org/licenses/>.                                            //
 //                                                                            //
 // Alternative licensing terms may be available for a fee, contact Jon DuBois //
@@ -44,7 +44,7 @@ int main( int argc, char* argv[] ) noexcept{
     string name = "<unknown name>";
     deque< string > args;
     
-    //Parse command line args.  BUGBUG handle stdin stdout as -.
+    //Parse command line arguments.
     if( argv != nullptr ){
       if( argc && ( *argv != nullptr ) )
         name = *argv;
@@ -92,7 +92,7 @@ int main( int argc, char* argv[] ) noexcept{
             expressions.emplace_back( "" );
           }
         }
-      } // Done collecting arguments, now either show help ot parse.
+      } // Done collecting arguments, now either show help or parse.
       if( help ){
         cout << strings::usageMessage;
       }else{

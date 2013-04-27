@@ -12,7 +12,7 @@
 // details.                                                                   //
 //                                                                            //
 // You should have received a copy of the GNU General Public License along    //
-// with LNZ, located in the file GPL.txt.  If not, see                        //
+// with LNZ, located in the file LICENSE.  If not, see                        //
 // <http://www.gnu.org/licenses/>.                                            //
 //                                                                            //
 // Alternative licensing terms may be available for a fee, contact Jon DuBois //
@@ -91,7 +91,7 @@ void operator delete( void* p ) noexcept{
 
 
 ////////////////////////////////////////////////////////////////////////////////
-// Platform independant section.
+// Platform independent section.
 
 void OS::die( const string& msg ) throw( lnzException ){
   throw lnzException( msg );
@@ -157,7 +157,7 @@ void OS::putStandardOut( const string& data ) throw( lnzFileException ){
 
 
 ////////////////////////////////////////////////////////////////////////////////
-// Platform dependant sections.
+// Platform dependent sections.
 
 #ifdef WINDOWS
 

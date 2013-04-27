@@ -12,7 +12,7 @@
 // details.                                                                   //
 //                                                                            //
 // You should have received a copy of the GNU General Public License along    //
-// with LNZ, located in the file GPL.txt.  If not, see                        //
+// with LNZ, located in the file LICENSE.  If not, see                        //
 // <http://www.gnu.org/licenses/>.                                            //
 //                                                                            //
 // Alternative licensing terms may be available for a fee, contact Jon DuBois //
