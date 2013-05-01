@@ -1,25 +1,10 @@
 
-strings.hpp,1446
-#define LNZ_STRINGS_HPP27,1815
-struct strings{strings29,1840
-  static constexpr const char* expressionFlag strings::expressionFlag30,1856
-  static constexpr const char* outFileFlag strings::outFileFlag31,1910
-  static constexpr const char* helpFlag strings::helpFlag32,1961
-  static constexpr const char* expressionFlagError strings::expressionFlagError33,2009
-  static constexpr const char* outFileFlagError strings::outFileFlagError35,2114
-  static constexpr const char* commandLineExpression strings::commandLineExpression37,2213
-  static constexpr const char* usageMessage strings::usageMessage39,2300
-  static constexpr const char* fileOpenError strings::fileOpenError50,3038
-  static constexpr const char* fileReadError strings::fileReadError51,3110
-  static constexpr const char* fileWriteError strings::fileWriteError52,3182
-  static constexpr const char* fileExistsError strings::fileExistsError54,3290
-  static constexpr const char* memoryError strings::memoryError56,3408
-  static constexpr const char* emptyFileName strings::emptyFileName58,3504
-  static constexpr const char* standardInput strings::standardInput60,3621
-  static constexpr const char* standardOutput strings::standardOutput61,3686
-  static constexpr const char* yesOrNoPrompt strings::yesOrNoPrompt62,3753
-  static constexpr const char yesChar strings::yesChar63,3810
-  static constexpr const char noChar strings::noChar64,3855
+strings.hpp,289
+#define LNZ_STRINGS_HPP26,1803
+class Strings{Strings31,1882
+  static std::string getString(Strings::getString38,2280
+  static const std::unordered_map<Strings::std::unordered_map40,2370
+  static const std::unordered_map< std::string, std::string > strings;Strings::strings40,2370
 
 parse.hpp,270
 #define LNZ_PARSE_H28,1713
@@ -107,21 +92,26 @@ using namespace std;34,1753
 size_t OS::mallocCount 38,1799
 size_t OS::freeCount 39,1827
 void* OS::lnzmalloc(44,1863
-void OS::lnzfree(56,2071
-void* operator new(operator new64,2188
-void* operator new[](operator new[]67,2288
-void* operator new(operator new71,2395
-void* operator new[](operator new[]74,2485
-void* operator new[](operator new[]79,2604
-void operator delete[](operator delete[]82,2700
-void* operator new(operator new85,2768
-void operator delete(operator delete88,2862
-void OS::die(96,3045
-string OS::getFile(101,3180
-string OS::getStandardIn(120,3810
-void OS::putFile(133,4252
-void OS::putStandardOut(147,4786
-bool OS::yesOrNo(166,5377
-bool OS::setClip(172,5611
-bool OS::yesOrNo(204,6312
-bool OS::setClip(214,6656
+void OS::lnzfree(56,2088
+void* operator new(operator new64,2205
+void* operator new[](operator new[]67,2305
+void* operator new(operator new71,2412
+void* operator new[](operator new[]74,2502
+void* operator new[](operator new[]79,2621
+void operator delete[](operator delete[]82,2717
+void* operator new(operator new85,2785
+void operator delete(operator delete88,2879
+void OS::die(96,3062
+string OS::getFile(101,3197
+string OS::getStandardIn(122,3890
+void OS::putFile(135,4321
+void OS::putStandardOut(151,4934
+bool OS::yesOrNo(170,5501
+bool OS::setClip(176,5735
+bool OS::yesOrNo(208,6436
+bool OS::setClip(219,6858
+
+strings.cpp,128
+using namespace std;31,1817
+const unordered_map< string, string > Strings::strings 34,1840
+string Strings::getString(75,3772

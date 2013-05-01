@@ -1,3 +1,4 @@
 os.o: os.cpp lnz.hpp strings.hpp os.hpp
 parse.o: parse.cpp lnz.hpp strings.hpp parse.hpp
 main.o: main.cpp lnz.hpp strings.hpp parse.hpp os.hpp
+strings.o: strings.cpp lnz.hpp strings.hpp

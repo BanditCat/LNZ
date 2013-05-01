@@ -40,6 +40,17 @@ using namespace std;
 
 int main( int argc, char* argv[] ) noexcept{
   int ret = EXIT_SUCCESS;
+
+  // BUGBUG
+  cout << Strings::getString({ "foo", "bar" }) << endl;
+  cout << Strings::getString({ "fo%1o", "bar" }) << endl;
+  cout << Strings::getString({ "fo%0o", "bar" }) << endl;
+  cout << Strings::getString({ "fileOpenError", "bar" }) << endl;
+  cout << Strings::getString({ "fo%2o", "bar", "baz" }) << endl;
+  cout << Strings::getString({ "fo%3o", "bar", "baz" }) << endl;
+  cout << Strings::getString({ "fo%%0o", "bar", "baz" }) << endl;
+  cout << Strings::getString({ "fo%%%%%2o", "bar", "baz" }) << endl;
+
   try{
     string name = "<unknown name>";
     deque< string > args;
@@ -59,9 +70,9 @@ int main( int argc, char* argv[] ) noexcept{
       for( size_t i = 0; i < args.size(); ++i ){
         // Ignore empty arguments.
         if( args[ i ].size() ){
-          if( args[ i ] == strings::expressionFlag ){
+          if( args[ i ] == Strings::getString({ "expressionFlag" }) ){
             if( i + 1 >= args.size() || !args[ i + 1 ].size() ){
-              cerr << strings::expressionFlagError << endl;
+              cerr << Strings::getString({ "expressionFlagError" }) << endl;
               help = true;
               ret = EXIT_FAILURE;
               break;
@@ -69,12 +80,12 @@ int main( int argc, char* argv[] ) noexcept{
               ++i;
               expressions.emplace_back( args[ i ] );
               expressionNames.emplace_back
-                ( "<" + string( strings::commandLineExpression ) + " " + 
-                  asString( ++expressionCommandCount ) + ">" );
+                ( Strings::getString({ "commandLineExpression", 
+		      asString( ++expressionCommandCount ) }) );
             }
-          }else if( args[ i ] == strings::outFileFlag ){
+          }else if( args[ i ] == Strings::getString({ "outFileFlag" }) ){
             if( i + 1 >= args.size() || !args[ i + 1 ].size() ){
-              cerr << strings::outFileFlagError << endl;
+              cerr << Strings::getString({ "outFileFlagError" }) << endl;
               help = true;
               ret = EXIT_FAILURE;
               break;
@@ -82,7 +93,7 @@ int main( int argc, char* argv[] ) noexcept{
               ++i;
               outFiles.emplace_back( args[ i ] );
             }
-          }else if( args[ i ] == strings::helpFlag ){
+          }else if( args[ i ] == Strings::getString({ "helpFlag" }) ){
             help = true;
             break;
           }else{
@@ -94,7 +105,7 @@ int main( int argc, char* argv[] ) noexcept{
         }
       } // Done collecting arguments, now either show help or parse.
       if( help ){
-        cout << strings::usageMessage;
+        cout << Strings::getString({ "usageMessage" });
       }else{
         // First check for empty file/expression lists and load files.
         if( !expressions.size() ){

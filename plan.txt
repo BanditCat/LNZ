@@ -24,23 +24,17 @@
 Make strings hide behind a function so adding a string doesn't force a
 recompile.  Use constexpr.
 
-Ocasionally grep through source for BUGBUG, TODO
+Occasionally grep through source for BUGBUG, TODO
 
 Make Testable base class, make all classes be children. Write unit tests.
 
 Write FullInt and StateMachine class, then Tokenizer and Parser.
 
-THE POINT: A functional language that runs in parallel across all cores and
-GPUs automatically.
 
 Add warranty boilerplate to help message.
 
+Do timing in tests.
 
-
-No repl, who uses repls anyways?
-
-Formatting: spaces everywhere, braces on same line, everything 80 columns or 
-less
 
 
 write custom exceptions and handle them so OS::die throws
@@ -49,9 +43,10 @@ Rule 1) Exception-safety: all functions in all headers have either noexcept or
 throw declarations, if this is not possible, then use comments to document 
 exception behavior.
 
-Use DEBUG macro to enable cpu-time reporting and dieing for exception safety
+Rule 2) Formatting: spaces everywhere, braces on same line, everything 80 columns or 
+less
 
-Write a flexible parser class. (parse.cpp and hpp, use unordered_map)
+
 
 
 Setup repositories for the rest of my code (vislib et al)

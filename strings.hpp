@@ -19,49 +19,25 @@
 // (bcj1980@gmail.com) for details.                                           //
 ////////////////////////////////////////////////////////////////////////////////
 
-// All user facing strings go here, collected in one place to ease in e.g. 
-// translation or spell correction. This file is meant to be directly included
-// in lnz.hpp
+// Just a real short dummy header with the actual strings in the cpp to help 
+// mitigate recompiles.  This file is meant to be directly included in lnz.hpp
 
 #ifndef LNZ_STRINGS_HPP
 #define LNZ_STRINGS_HPP
 
-struct strings{
-  static constexpr const char* expressionFlag = "-e";
-  static constexpr const char* outFileFlag = "-o";
-  static constexpr const char* helpFlag = "-h";
-  static constexpr const char* expressionFlagError = 
-    "Error: expected an expression to follow -e.";
-  static constexpr const char* outFileFlagError = 
-    "Error: expected a filename to follow -o.";
-  static constexpr const char* commandLineExpression = 
-    "command line expression";
-  static constexpr const char* usageMessage = 
-    "Each argument must be in one of the following forms:\n"
-    "  <filename>      loads file and parses it.\n"
-    "  -o <filename>   writes output to file, usable more than once.\n"
-    "  -e <expression> evaluates an expression, usable more than once.\n"
-    "  -h              display this help.\n"
-    "                  If no expressions or input files are specified, or -\n"
-    "                  is specified as an input file, the program reads from\n"
-    "                  standard input until EOF (ctrl-d). If no output files\n"
-    "                  are specified or - is specified as an output file, the\n"
-    "                  program will output to standard output.\n";
-  static constexpr const char* fileOpenError = "Failed to open file: ";
-  static constexpr const char* fileReadError = "Failed to read file: ";
-  static constexpr const char* fileWriteError = 
-    "Failed to write file (are you out of disk space?): ";
-  static constexpr const char* fileExistsError = 
-    "A file operation was attempted on file that already exists: ";
-  static constexpr const char* memoryError = 
-    "Memory error! You are probably out of RAM!";
-  static constexpr const char* emptyFileName = 
-    "Error: a file operation was attempted with an empty filename.";
-  static constexpr const char* standardInput = "standard input";
-  static constexpr const char* standardOutput = "standard output";
-  static constexpr const char* yesOrNoPrompt = "y/n?: ";
-  static constexpr const char yesChar = 'y';
-  static constexpr const char noChar = 'n';
+#include <unordered_map>
+#include <initializer_list>
+
+class Strings{
+public:
+  // This takes the first string argument and checks to see if there is a string
+  // with that name: if so, it substitutes in the named string.  Afterward, the
+  // string has all occurences of %1 replaced with the second argument, %2 
+  // replaced by the third etc.  %% becomes % and %n disappears unless n is a 
+  // valid reference for the number of arguments supplied.
+  static std::string getString( std::initializer_list< std::string > ) noexcept;
+private:
+  static const std::unordered_map< std::string, std::string > strings;
 };
  
 #endif // LNZ_STRINGS_HPP
