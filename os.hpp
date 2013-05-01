@@ -19,7 +19,7 @@
 // (bcj1980@gmail.com) for details.                                           //
 ////////////////////////////////////////////////////////////////////////////////
 
-// OS Specific header.
+// OS Specific header. 
 
 #include <string>
 

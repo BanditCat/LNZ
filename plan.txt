@@ -19,12 +19,20 @@
 // (bcj1980@gmail.com) for details.                                           //
 ////////////////////////////////////////////////////////////////////////////////
 
-Unit tests?
+
+Make strings hide behind a function so adding a string doesn't force a
+recompile.  Use constexpr.
+
+Ocasionally grep through source for BUGBUG, TODO
+
+Make Testable base class, make all classes be children. Write unit tests.
+
+Write FullInt and StateMachine class, then Tokenizer and Parser.
 
 THE POINT: A functional language that runs in parallel across all cores and
 GPUs automatically.
 
-Spell check and warranty boilerplate to help message.
+Add warranty boilerplate to help message.
 
 
 
@@ -42,6 +50,3 @@ documentation saying what they throw.
 Use DEBUG macro to enable cpu-time reporting and dieing for exception safety
 
 Write a flexible parser class. (parse.cpp and hpp, use unordered_map)
-
-
-

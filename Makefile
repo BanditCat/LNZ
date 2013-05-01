@@ -23,7 +23,8 @@
 
 
 
-all: debug lnz.exe
+.PHONY: all
+all: debug
 
 
 
@@ -33,55 +34,68 @@ CPPFLAGS=-std=c++11 -Wall -fexceptions -pedantic -Wextra -Werror -c
 LD=g++
 LDFLAGS=
 
+# OS Detection.
+UNAME=$(shell uname) 
+ifeq ($(UNAME), MINGW32_NT-6.1 )
+TARGET=lnz.exe
+OSNAME=windows
+endif
+ifeq ($(UNAME), Linux)
+TARGET=lnz
+OSNAME=android
+endif
 
 # Actual build rules.
-SRCS=lnz.hpp os.hpp parse.hpp strings.hpp main.cpp os.cpp parse.cpp
-OBJS=main.o os.o parse.o
-$(OBJS): lnz.hpp strings.hpp Makefile
-os.o: os.hpp
-parse.o: parse.hpp
-main.o: os.hpp parse.hpp
+SRCS=$(wildcard ./*.hpp) $(wildcard ./*.cpp)
+CPPS=$(wildcard ./*.cpp)
+OBJS=$(CPPS:.cpp=.o)
+$(OBJS): Makefile
+include deps
 
 # Override defaults
 %.o: %.cpp
 	$(CPP) $(CPPSYSFLAGS) $(CPPFLAGS) $< -o $@
 
-lnz.exe: $(OBJS)
+$(TARGET): $(OBJS)
 	$(LD) $(LDFLAGS) $^ -o $@
 	$(STRIP)
 
+TAGS: $(SRCS)
+	etags --declarations --ignore-indentation $^
 
-UNAME=$(shell uname)
+
 .PHONY: release 
-release:
-ifeq ($(UNAME), MINGW32_NT-6.1)
-	$(eval CPPFLAGS:=-O4 -DWINDOWS -flto $(CPPFLAGS))
-	$(eval LDFLAGS:=-O4 -flto $(LDFLAGS))
-	$(eval STRIP:=strip -p lnz.exe)
+release: $(TARGET)
+ifeq ($(OSNAME), windows)
+release: CPPFLAGS:=-O4 -DWINDOWS -flto $(CPPFLAGS)
+release: LDFLAGS:=-O4 -flto $(LDFLAGS)
+release: STRIP:=strip -p $(TARGET)
 endif
-ifeq ($(UNAME), Linux)
-	$(eval CPPFLAGS:=-O4 -DANDROID $(CPPFLAGS))
-	$(eval LDFLAGS:=-O4 $(LDFLAGS))
-	$(eval STRIP:=strip -p lnz.exe)
+ifeq ($(OSNAME), android)
+release: CPPFLAGS:=-O4 -DANDROID $(CPPFLAGS)
+release: LDFLAGS:=-O4 $(LDFLAGS)
+release: STRIP:=strip -p $(TARGET)
 endif
 
 .PHONY: debug
-debug:
-ifeq ($(UNAME), MINGW32_NT-6.1)
-	$(eval CPPFLAGS:=-DWINDOWS -DDEBUG $(CPPFLAGS))
+debug: $(TARGET)
+ifeq ($(OSNAME), windows)
+debug: CPPFLAGS:=-DWINDOWS -DDEBUG $(CPPFLAGS)
 endif
-ifeq ($(UNAME), Linux)
-	$(eval CPPFLAGS:=-DANDROID -DDEBUG $(CPPFLAGS))
+ifeq ($(OSNAME), android)
+debug: CPPFLAGS:=-DANDROID -DDEBUG $(CPPFLAGS)
 endif
 
 
 .PHONY: clean
 clean:
-	rm -f ./*.o ./*.exe
+	rm -f ./*.o $(TARGET)
 
 .PHONY: backup
 backup:
 	make -C ../ backup
 
-TAGS: $(SRCS)
-	etags --declarations --ignore-indentation $^
+.PHONY: depend
+depend:
+	gcc -std=c++11 -MM $(CPPS) > ./deps
+
