@@ -19,8 +19,6 @@
 ## (bcj1980@gmail.com) for details.                                           ##
 ################################################################################
 
-# TODO: Write gcc and 32-bit portions.
-
 
 
 .PHONY: all

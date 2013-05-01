@@ -20,6 +20,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 
+
 Make strings hide behind a function so adding a string doesn't force a
 recompile.  Use constexpr.
 
@@ -45,8 +46,12 @@ less
 write custom exceptions and handle them so OS::die throws
 
 Rule 1) Exception-safety: all functions in all headers have either noexcept or 
-documentation saying what they throw.
+throw declarations, if this is not possible, then use comments to document 
+exception behavior.
 
 Use DEBUG macro to enable cpu-time reporting and dieing for exception safety
 
 Write a flexible parser class. (parse.cpp and hpp, use unordered_map)
+
+
+Setup repositories for the rest of my code (vislib et al)
