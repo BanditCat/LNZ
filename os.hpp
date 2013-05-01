@@ -20,6 +20,8 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 // OS Specific header. 
+#ifndef LNZ_OS_HPP
+#define LNZ_OS_HPP
 
 #include <string>
 
@@ -87,3 +89,4 @@ private:
   
  
  
+#endif //LNZ_OS_HPP

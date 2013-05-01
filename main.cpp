@@ -41,16 +41,6 @@ using namespace std;
 int main( int argc, char* argv[] ) noexcept{
   int ret = EXIT_SUCCESS;
 
-  // BUGBUG
-  cout << Strings::getString({ "foo", "bar" }) << endl;
-  cout << Strings::getString({ "fo%1o", "bar" }) << endl;
-  cout << Strings::getString({ "fo%0o", "bar" }) << endl;
-  cout << Strings::getString({ "fileOpenError", "bar" }) << endl;
-  cout << Strings::getString({ "fo%2o", "bar", "baz" }) << endl;
-  cout << Strings::getString({ "fo%3o", "bar", "baz" }) << endl;
-  cout << Strings::getString({ "fo%%0o", "bar", "baz" }) << endl;
-  cout << Strings::getString({ "fo%%%%%2o", "bar", "baz" }) << endl;
-
   try{
     string name = "<unknown name>";
     deque< string > args;
@@ -93,7 +83,10 @@ int main( int argc, char* argv[] ) noexcept{
               ++i;
               outFiles.emplace_back( args[ i ] );
             }
-          }else if( args[ i ] == Strings::getString({ "helpFlag" }) ){
+          }else if( args[ i ] == Strings::getString({ "helpFlag" }) ||
+                    ( args[ i ].size() >= 2 && args[ i ][ 0 ] == '-' ) ){
+            if( args[ i ] != Strings::getString({ "helpFlag" }) )
+              cerr << Strings::getString({ "flagError", args[ i ] }) << endl;
             help = true;
             break;
           }else{
@@ -154,8 +147,9 @@ int main( int argc, char* argv[] ) noexcept{
     }
   }catch( const exception& e ){
     bool copy = 
-      OS::yesOrNo( string( e.what() ) +
-                   "\n\nCopy message to clipboard?\n", "Fatal error!" );
+      OS::yesOrNo( string( e.what() ) + "\n\n" +
+                   Strings::getString({ "clipboardQuestion" }) + "\n",
+                   Strings::getString({ "fatalError" }) );
     if( copy )
       OS::setClip( e.what() );
     ret = EXIT_FAILURE;

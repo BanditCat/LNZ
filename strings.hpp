@@ -35,7 +35,11 @@ public:
   // string has all occurences of %1 replaced with the second argument, %2 
   // replaced by the third etc.  %% becomes % and %n disappears unless n is a 
   // valid reference for the number of arguments supplied.
+  // DONT CALL WITH ZERO ARGS!
   static std::string getString( std::initializer_list< std::string > ) noexcept;
+  // This is a const char* because by the time we need it we don't want strings.
+  static const char* memoryError;
+
 private:
   static const std::unordered_map< std::string, std::string > strings;
 };

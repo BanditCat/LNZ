@@ -1,1 +1,6 @@
-LNZ0.1a Strings!
+LNZ0.1a Tweaks and corrections from phone.  
+
+Working on fixing memory leak caused by static initialization of an
+unordered_map (I think).
+
+

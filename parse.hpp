@@ -24,8 +24,8 @@
 #include <string>
 #include <unordered_map>
  
-#ifndef LNZ_PARSE_H
-#define LNZ_PARSE_H
+#ifndef LNZ_PARSE_HPP
+#define LNZ_PARSE_HPP
 
 
 
@@ -43,5 +43,5 @@ private:
 };
 
 
-#endif // LNZ_PARSE_H
+#endif // LNZ_PARSE_HPP
 

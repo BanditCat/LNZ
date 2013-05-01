@@ -44,7 +44,7 @@ size_t OS::freeCount = 0;
 void* OS::lnzmalloc( size_t sz ) noexcept{
   void* ans = malloc( sz );
   if( ans == nullptr ){
-    cerr << Strings::getString({ "memoryError" });
+    cerr << Strings::memoryError;
     terminate();
   }
 #ifdef DEBUG
@@ -207,14 +207,17 @@ bool OS::setClip( const string& msg ) noexcept{
 #ifdef ANDROID
 bool OS::yesOrNo( const string& question, const string& header ) noexcept{
   cout << "\n\n\t" << header << endl << question << endl <<
-    Strings::getString( "yesOrNoPrompt" );
-  char c = cin.get();
-  while( c != Strings::getString( "yesChar" ) && 
-	 c != Strings::getString( "noChar" ) ){
-    cout << endl << Strings::getString( "yesOrNoPrompt" );
-    c = cin.get();
+    Strings::getString({ "yesOrNoPrompt" });
+  char cs[ 2 ] = { 0, 0 };
+  cs[ 0 ] = cin.get();
+  string c = cs;
+  while( c != Strings::getString({ "yesChar" }) && 
+	 c != Strings::getString({ "noChar" }) ){
+    cout << endl << Strings::getString({ "yesOrNoPrompt" });
+    cs[ 0 ] = cin.get();
+    c = cs;
   }
-  return c == Strings::getString( "yesChar" );
+  return c == Strings::getString({ "yesChar" });
 }
 bool OS::setClip( const string& ) noexcept{
   return false;

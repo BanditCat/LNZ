@@ -25,11 +25,13 @@
 #include <unordered_map>
 #include <sstream>
 #include <cctype>
+#include <stdexcept>
 
 #include "lnz.hpp"
 
 using namespace std;
 
+const char* Strings::memoryError = "Memory error! You are probably out of RAM!";
 
 const unordered_map< string, string > Strings::strings = {
   { "expressionFlag", "-e" },
@@ -62,15 +64,17 @@ const unordered_map< string, string > Strings::strings = {
     "Failed to write file (are you out of disk space?): %1" },
   { "fileExistsError", 
     "A file operation was attempted on file that already exists: %1" },
-  { "memoryError", 
-    "Memory error! You are probably out of RAM!" },
   { "emptyFileName", 
     "Error: a file operation was attempted with an empty filename." },
   { "standardInput", "<standard input>" },
   { "standardOutput", "<standard output>" },
   { "yesOrNoPrompt", "y/n?: " },
   { "yesChar", "y" },
-  { "noChar", "n" } };
+  { "noChar", "n" },
+  { "flagError", "Unrecognized flag %1" },
+  { "fatalError", "Fatal Error!" },
+  { "clipboardQuestion", "Copy to clipboard?" },
+};
 
 string Strings::getString( initializer_list< string > args ) noexcept{
   string base;

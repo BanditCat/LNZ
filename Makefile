@@ -38,7 +38,7 @@ ifeq ($(UNAME), MINGW32_NT-6.1 )
 TARGET=lnz.exe
 OSNAME=windows
 endif
-ifeq ($(UNAME), Linux)
+ifeq ($(UNAME), Linux )
 TARGET=lnz
 OSNAME=android
 endif
@@ -96,4 +96,3 @@ backup:
 .PHONY: depend
 depend:
 	gcc -std=c++11 -MM $(CPPS) > ./deps
-

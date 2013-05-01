@@ -21,12 +21,9 @@
 
 
 // LNZ main header file.
- 
-
-
 // All global defines in this software are prefixed with LNZ_.
-#ifndef LNZ_LNZ_H
-#define LNZ_LNZ_H
+#ifndef LNZ_LNZ_HPP
+#define LNZ_LNZ_HPP
 
 #include <string>
 #include <sstream>
@@ -90,8 +87,6 @@ inline std::string asString( const T& s ){
 // Constants
 constexpr size_t fileBufferSize = 1024 * 1024;
 
-// Include strings file.
-#include "strings.hpp"
 
 // Exceptions.
 // lnzExcpetion is the base class and is thrown in circumstances that should
@@ -113,4 +108,7 @@ public:
   inline virtual ~lnzFileException( void ) noexcept{}
 };
 
-#endif //LNZ_LNZ_H
+// Include strings file.
+#include "strings.hpp"
+
+#endif //LNZ_LNZ_HPP
