@@ -39,6 +39,7 @@ using namespace std;
 
 
 int main( int argc, char* argv[] ) noexcept{
+  OS os;
   int ret = EXIT_SUCCESS;
 
   try{
@@ -60,9 +61,9 @@ int main( int argc, char* argv[] ) noexcept{
       for( size_t i = 0; i < args.size(); ++i ){
         // Ignore empty arguments.
         if( args[ i ].size() ){
-          if( args[ i ] == Strings::getString({ "expressionFlag" }) ){
+          if( args[ i ] == Strings::gs({ "expressionFlag" }) ){
             if( i + 1 >= args.size() || !args[ i + 1 ].size() ){
-              cerr << Strings::getString({ "expressionFlagError" }) << endl;
+              cerr << Strings::gs({ "expressionFlagError" }) << endl;
               help = true;
               ret = EXIT_FAILURE;
               break;
@@ -70,12 +71,12 @@ int main( int argc, char* argv[] ) noexcept{
               ++i;
               expressions.emplace_back( args[ i ] );
               expressionNames.emplace_back
-                ( Strings::getString({ "commandLineExpression", 
+                ( Strings::gs({ "commandLineExpression", 
 		      asString( ++expressionCommandCount ) }) );
             }
-          }else if( args[ i ] == Strings::getString({ "outFileFlag" }) ){
+          }else if( args[ i ] == Strings::gs({ "outFileFlag" }) ){
             if( i + 1 >= args.size() || !args[ i + 1 ].size() ){
-              cerr << Strings::getString({ "outFileFlagError" }) << endl;
+              cerr << Strings::gs({ "outFileFlagError" }) << endl;
               help = true;
               ret = EXIT_FAILURE;
               break;
@@ -83,10 +84,10 @@ int main( int argc, char* argv[] ) noexcept{
               ++i;
               outFiles.emplace_back( args[ i ] );
             }
-          }else if( args[ i ] == Strings::getString({ "helpFlag" }) ||
+          }else if( args[ i ] == Strings::gs({ "helpFlag" }) ||
                     ( args[ i ].size() >= 2 && args[ i ][ 0 ] == '-' ) ){
-            if( args[ i ] != Strings::getString({ "helpFlag" }) )
-              cerr << Strings::getString({ "flagError", args[ i ] }) << endl;
+            if( args[ i ] != Strings::gs({ "helpFlag" }) )
+              cerr << Strings::gs({ "flagError", args[ i ] }) << endl;
             help = true;
             break;
           }else{
@@ -98,7 +99,7 @@ int main( int argc, char* argv[] ) noexcept{
         }
       } // Done collecting arguments, now either show help or parse.
       if( help ){
-        cout << Strings::getString({ "usageMessage" });
+        cout << Strings::gs({ "usageMessage" });
       }else{
         // First check for empty file/expression lists and load files.
         if( !expressions.size() ){
@@ -112,9 +113,9 @@ int main( int argc, char* argv[] ) noexcept{
           for( size_t i = 0; i < expressions.size(); ++i ){
             if( !expressions[ i ].size() ){
               if( expressionNames[ i ] == "-" )
-                expressions[ i ] = OS::getStandardIn();
+                expressions[ i ] = os.getStandardIn();
               else
-                expressions[ i ] = OS::getFile( expressionNames[ i ] );
+                expressions[ i ] = os.getFile( expressionNames[ i ] );
             }
           }
         }catch( const lnzFileException& lfe ){
@@ -135,9 +136,9 @@ int main( int argc, char* argv[] ) noexcept{
         for( size_t i = 0; i < outFiles.size(); ++i ){
           try{
             if( outFiles[ i ] == "-" )
-              OS::putStandardOut( out.str() );
+              os.putStandardOut( out.str() );
             else
-              OS::putFile( outFiles[ i ], out.str() );
+              os.putFile( outFiles[ i ], out.str() );
           }catch( const lnzFileException& lfe ){
             cerr << lfe.what() << endl;
             ret = EXIT_FAILURE;
@@ -147,18 +148,18 @@ int main( int argc, char* argv[] ) noexcept{
     }
   }catch( const exception& e ){
     bool copy = 
-      OS::yesOrNo( string( e.what() ) + "\n\n" +
-                   Strings::getString({ "clipboardQuestion" }) + "\n",
-                   Strings::getString({ "fatalError" }) );
+      os.yesOrNo( string( e.what() ) + "\n\n" +
+                   Strings::gs({ "clipboardQuestion" }) + "\n",
+                   Strings::gs({ "fatalError" }) );
     if( copy )
-      OS::setClip( e.what() );
+      os.setClip( e.what() );
     ret = EXIT_FAILURE;
   }
  
 #ifdef DEBUG 
-  cerr << "Memory allocations: " << OS::getMallocCount() << endl;
-  cerr << "Memory frees: " << OS::getFreeCount() << endl;
-  cerr << "Memory leaks: " << OS::getMallocCount() - OS::getFreeCount() << endl;
+  cerr << "Memory allocations: " << os.getMallocCount() << endl;
+  cerr << "Memory frees: " << os.getFreeCount() << endl;
+  cerr << "Memory leaks: " << os.getMallocCount() - os.getFreeCount() << endl;
 #endif
   
   return ret;

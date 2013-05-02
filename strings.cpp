@@ -32,6 +32,7 @@
 using namespace std;
 
 const char* Strings::memoryError = "Memory error! You are probably out of RAM!";
+const char* Strings::fatalOSError = "Fatal OS error! Irrecoverable!";
 
 const unordered_map< string, string > Strings::strings = {
   { "expressionFlag", "-e" },
@@ -76,7 +77,7 @@ const unordered_map< string, string > Strings::strings = {
   { "clipboardQuestion", "Copy to clipboard?" },
 };
 
-string Strings::getString( initializer_list< string > args ) noexcept{
+string Strings::gs( initializer_list< string > args ) noexcept{
   string base;
   ostringstream ans;
   // I know this is ugly, but how the heck do we get an index while being 

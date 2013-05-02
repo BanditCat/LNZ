@@ -37,25 +37,45 @@ using namespace std;
 #ifdef DEBUG
 size_t OS::mallocCount = 0;
 size_t OS::freeCount = 0;
+bool OS::mallocCounting = false;
 #endif
+OS* OS::theOS = nullptr;
 
-
+// NO ALLOCATION!
+OS::OS( void ) noexcept{
+  if( theOS == nullptr )
+    theOS = this;
+  else{
+    cerr << Strings::fatalOSError << endl;
+    terminate();
+  }
+#ifdef DEBUG
+  OS::mallocCounting = true;
+#endif
+}
+OS::~OS( void ) noexcept{
+#ifdef DEBUG
+  OS::mallocCounting = false;
+#endif
+}
 
 void* OS::lnzmalloc( size_t sz ) noexcept{
   void* ans = malloc( sz );
   if( ans == nullptr ){
-    cerr << Strings::memoryError;
+    cerr << Strings::memoryError << endl;
     terminate();
   }
 #ifdef DEBUG
-  ++OS::mallocCount;
+  if( OS::mallocCounting )
+    ++OS::mallocCount;
 #endif
   return ans;
 }
 
 void OS::lnzfree( void* p ) noexcept{ 
 #ifdef DEBUG
-  ++OS::freeCount;
+  if( OS::mallocCounting )
+    ++OS::freeCount;
 #endif
   free( p ); 
 }
@@ -82,10 +102,16 @@ void* operator new[]( size_t sz, const nothrow_t& ) noexcept{
 void operator delete[]( void* p ) noexcept{ 
   OS::lnzfree( p ); 
 }
+void operator delete[]( void* p, const nothrow_t& ) noexcept{ 
+  OS::lnzfree( p ); 
+}
 void* operator new( size_t sz, const nothrow_t& ) noexcept{ 
   return OS::lnzmalloc( sz ); 
 }
 void operator delete( void* p ) noexcept{ 
+  OS::lnzfree( p ); 
+}
+void operator delete( void* p, const nothrow_t& ) noexcept{ 
   OS::lnzfree( p ); 
 }
 
@@ -100,7 +126,7 @@ void OS::die( const string& msg ) throw( lnzException ){
 // This theoretically handles embedded '\0's.
 string OS::getFile( const string& filename ) throw( lnzFileException ){
   if( !filename.size() )
-    throw lnzFileException( Strings::getString({ "emptyFileName" }) );
+    throw lnzFileException( Strings::gs({ "emptyFileName" }) );
   ifstream ifs( filename );
   if( ifs.is_open() ){
     ostringstream oss;
@@ -111,12 +137,12 @@ string OS::getFile( const string& filename ) throw( lnzFileException ){
       oss << string( buf, ifs.gcount() );
     }
     if( ifs.bad() )
-      throw lnzFileException( Strings::getString({ "fileReadError", 
+      throw lnzFileException( Strings::gs({ "fileReadError", 
 	      filename }) );
     else
       return oss.str();
   }else
-    throw lnzFileException( Strings::getString({ "fileOpenError", 
+    throw lnzFileException( Strings::gs({ "fileOpenError", 
 	    filename }) );
 }
 string OS::getStandardIn( void ) throw( lnzFileException ){
@@ -128,35 +154,33 @@ string OS::getStandardIn( void ) throw( lnzFileException ){
     oss << string( buf, cin.gcount() );
   }
   if( cin.bad() )
-    throw lnzFileException( Strings::getString({ "fileReadError", 
-	    Strings::getString({ "standardInput" }) }) );
+    throw lnzFileException( Strings::gs({ "fileReadError", 
+	    Strings::gs({ "standardInput" }) }) );
   return oss.str();
 }
 void OS::putFile( const string& filename, const string& data ) 
   throw( lnzFileException ){
   if( !filename.size() )
-    throw lnzFileException( Strings::getString({ "emptyFileName" }) );
+    throw lnzFileException( Strings::gs({ "emptyFileName" }) );
   if( bool( ifstream( filename ) ) )
-    throw lnzFileException( Strings::getString({ "fileExistsError", 
-	    filename }) );
+    throw lnzFileException( Strings::gs({ "fileExistsError", filename }) );
   ofstream ofs( filename );
   if( ofs.is_open() ){
     ofs.write( data.c_str(), data.size() );
     if( ofs.bad() )
-      throw lnzFileException( Strings::getString({ "fileWriteError", 
-	      filename }) );
+      throw lnzFileException( Strings::gs({ "fileWriteError", filename }) );
   }else
-    throw lnzFileException( Strings::getString({ "fileOpenError", filename }) );
+    throw lnzFileException( Strings::gs({ "fileOpenError", filename }) );
 }
 void OS::putStandardOut( const string& data ) throw( lnzFileException ){
   if( cout.good() ){
     cout.write( data.c_str(), data.size() );
     if( cout.bad() )
-      throw lnzFileException( Strings::getString({ "fileWriteError", 
-	      Strings::getString({ "standardOutput" }) }) );
+      throw lnzFileException( Strings::gs({ "fileWriteError", 
+	      Strings::gs({ "standardOutput" }) }) );
   }else
-    throw lnzFileException( Strings::getString({ "fileOpenError", 
-	    Strings::getString({ "standardOutput" }) }) );
+    throw lnzFileException( Strings::gs({ "fileOpenError", 
+	    Strings::gs({ "standardOutput" }) }) );
 }
 
 
@@ -207,17 +231,16 @@ bool OS::setClip( const string& msg ) noexcept{
 #ifdef ANDROID
 bool OS::yesOrNo( const string& question, const string& header ) noexcept{
   cout << "\n\n\t" << header << endl << question << endl <<
-    Strings::getString({ "yesOrNoPrompt" });
+    Strings::gs({ "yesOrNoPrompt" });
   char cs[ 2 ] = { 0, 0 };
   cs[ 0 ] = cin.get();
   string c = cs;
-  while( c != Strings::getString({ "yesChar" }) && 
-	 c != Strings::getString({ "noChar" }) ){
-    cout << endl << Strings::getString({ "yesOrNoPrompt" });
+  while( c != Strings::gs({ "yesChar" }) && c != Strings::gs({ "noChar" }) ){
+    cout << endl << Strings::gs({ "yesOrNoPrompt" });
     cs[ 0 ] = cin.get();
     c = cs;
   }
-  return c == Strings::getString({ "yesChar" });
+  return c == Strings::gs({ "yesChar" });
 }
 bool OS::setClip( const string& ) noexcept{
   return false;
