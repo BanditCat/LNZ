@@ -24,8 +24,8 @@
 #include <string>
 #include <unordered_map>
  
-#ifndef LNZ_PARSE_HPP
-#define LNZ_PARSE_HPP
+#ifndef LNZ_PARSER_HPP
+#define LNZ_PARSER_HPP
 
 
 
@@ -38,12 +38,12 @@ public:
 
   void insert( const std::string& ) noexcept;
 
-  static const char* test( void );
+  static const char* test( void ) noexcept( false );
 private:
   struct pParser;
   pParser* p;
 };
 
 
-#endif // LNZ_PARSE_HPP
+#endif // LNZ_PARSER_HPP
 

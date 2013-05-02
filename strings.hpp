@@ -37,12 +37,12 @@ public:
   // valid reference for the number of arguments supplied.
   // DONT CALL WITH ZERO ARGS!
   static std::string gs( std::initializer_list< std::string > ) noexcept;
-  // These are const char* because by the time we need them we don't want 
-  // strings.
+  // These are const char* because by the time they are needed strings are not
+  // safe.
   static const char* memoryError;
   static const char* fatalOSError;
 
-  static const char* test( void );
+  static const char* test( void ) noexcept( false );
 private:
   static const std::unordered_map< std::string, std::string > strings;
 };

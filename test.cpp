@@ -19,43 +19,44 @@
 // (bcj1980@gmail.com) for details.                                           //
 ////////////////////////////////////////////////////////////////////////////////
 
+// Test class. 
 
+#include <iostream>
 
-Occasionally grep through source for BUGBUG, TODO
+#include "lnz.hpp"
+#include "test.hpp"
+#include "os.hpp"
+#include "parser.hpp"
 
-Do timing in tests.
-
-Write FullInt and StateMachine class, then Tokenizer and Parser.
-
-
-
-
-
-* 1) Exception-safety: Functions should have either noexcept or throw 
-declarations, if this is not possible, then use comments to document exception
-behavior.  Unit tests are allowed to throw anything: Test::test catches
-exceptions from subtests.
-
-* 2) Formatting: spaces everywhere, braces on same line, everything 80 
-columns or less.  Class names are capitalized and nothing else.  Accessor 
-functions should begin with letter g.  Use punctuation unless its next to
-variable text such as a filename.  Output avoid assuming 80 columns.  While
-writing comments do s/we/I/r for the most part.
-
-* 3) Classes should have a static member test function that is the unit test.  
-Place it at the end of the source file for consistency. Make it report timing
-and be sure to thoroughly check edge cases. Calling Test::test calls the other
-unit tests.
-
-* 4) Use OS::gerr(), OS::gin() and OS::gout() over cerr, cin and cout.
-
-* 5) User-facing strings should go in strings.cpp and be accessed by 
-Strings::gs.  This makes it easier to internationalize or spell check and saves
-recompiles.
+using namespace std;
 
 
 
+void Test::test( void ) noexcept{
+  if( !OS::gexistent() ){
+    // I know this isn't informative, but it is uniquely identifying.
+    cerr << "BORK!BORK!BORK!" << endl;
+    terminate();
+  }
+  try{
+    const char* t = nullptr;
 
+    t = OS::test();
+    OS::gout() << Strings::gs({ "testing", "OS", 
+	  t == nullptr ? Strings::gs({ "success" }) : t }) << endl;
+    t = mainTest();
+    OS::gout() << Strings::gs({ "testing", "main", 
+	  t == nullptr ? Strings::gs({ "success" }) : t }) << endl;
+    t = Strings::test();
+    OS::gout() << Strings::gs({ "testing", "Strings", 
+	  t == nullptr ? Strings::gs({ "success" }) : t }) << endl;
+    t = Parser::test();
+    OS::gout() << Strings::gs({ "testing", "Parser", 
+	  t == nullptr ? Strings::gs({ "success" }) : t }) << endl;
 
-
-Setup repositories for the rest of my code (vislib et al)
+  }catch( const exception& e ){
+    OS::gout() << Strings::gs({ "testException", e.what() }) << endl;
+  }catch( ... ){
+    OS::gout() << Strings::gs({ "testUnknownException" }) << endl;
+  }
+}

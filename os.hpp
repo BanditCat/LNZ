@@ -19,14 +19,15 @@
 // (bcj1980@gmail.com) for details.                                           //
 ////////////////////////////////////////////////////////////////////////////////
 
-// OS Specific header. 
+// OS header. 
+
 #ifndef LNZ_OS_HPP
 #define LNZ_OS_HPP
 
 #include <string>
 
 
-// We override all these to just die on an out of memory condition.
+// Override all these to just die on an out of memory condition.
 // This is to fix compptibility with libstdc++ 4.7.2 etc.
 #ifdef _GLIBCXX_THROW
 void* operator new( size_t ) _GLIBCXX_THROW( std::bad_alloc );
@@ -79,10 +80,11 @@ public:
   static inline std::ostream& gout( void ){ return *out; }
   static inline std::ostream& gerr( void ){ return *err; }
   static inline std::istream& gin( void ){ return *in; }
+  static inline bool gexistent( void ){ return theOS != nullptr; }
 
   // The Unit Test(tm).  This one calls the others and does it's own reporting
   // on OS::gout(), so it doesn't need to return a value.
-  static void test( void );
+  static const char* test( void ) noexcept( false );
 #ifdef DEBUG
   static inline const size_t& getMallocCount( void ) noexcept{
   return mallocCount; 

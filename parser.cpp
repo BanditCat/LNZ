@@ -30,7 +30,7 @@
 
 #include "lnz.hpp"
 #include "os.hpp"
-#include "parse.hpp"
+#include "parser.hpp"
 
 using namespace std;
 

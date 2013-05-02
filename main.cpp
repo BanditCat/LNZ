@@ -32,8 +32,9 @@
 
 
 #include "lnz.hpp"
-#include "parse.hpp"
+#include "parser.hpp"
 #include "os.hpp"
+#include "test.hpp"
 
 using namespace std;
 
@@ -101,8 +102,8 @@ int main( int argc, char* argv[] ) noexcept{
 	  help = true;
 	  break;
 	}else{
-	  // Parse filenames.  We put the name in expressionNames and an empty
-	  // string in expressions.  This causes a load from file later.
+	  // Parse filenames.  Put the name in expressionNames and an empty
+	  // string in expressions: this causes a load from file later.
 	  expressionNames.emplace_back( args[ i ] );
 	  expressions.emplace_back( "" );
 	}
@@ -111,11 +112,11 @@ int main( int argc, char* argv[] ) noexcept{
     if( help ){
       OS::gout() << Strings::gs({ "usageMessage" });
     }else if( test || !expressions.size() ){
-      OS::test();
+      Test::test();
     }else{
       if( !outFiles.size() )
 	outFiles.emplace_back( "-" );
-      // Now we read in files.
+      // Now read in files.
       try{
 	for( size_t i = 0; i < expressions.size(); ++i ){
 	  if( !expressions[ i ].size() ){

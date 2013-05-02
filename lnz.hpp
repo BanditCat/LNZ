@@ -19,9 +19,9 @@
 // (bcj1980@gmail.com) for details.                                           //
 ////////////////////////////////////////////////////////////////////////////////
 
-
 // LNZ main header file.
 // All global defines in this software are prefixed with LNZ_.
+
 #ifndef LNZ_LNZ_HPP
 #define LNZ_LNZ_HPP
 
@@ -112,7 +112,8 @@ public:
 #include "strings.hpp"
 
 
-// The function that tests main gets declared here, so we can call it in OS
+// The function that tests main gets declared here so it can get called in 
+// Test::test().
 const char* mainTest( void );
 
 #endif //LNZ_LNZ_HPP

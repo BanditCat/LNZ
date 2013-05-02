@@ -97,7 +97,7 @@ const unordered_map< string, string > Strings::strings = {
 string Strings::gs( initializer_list< string > args ) noexcept{
   string base;
   ostringstream ans;
-  // I know this is ugly, but how the heck do we get an index while being 
+  // I know this is ugly, but how the heck do I get an index while being 
   // const and exception safe?
   try{ 
     base = strings.at( *args.begin() );

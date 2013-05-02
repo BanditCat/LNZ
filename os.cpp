@@ -19,7 +19,7 @@
 // (bcj1980@gmail.com) for details.                                           //
 ////////////////////////////////////////////////////////////////////////////////
 
-// OS Specific interface code.
+// OS Specific interface code is isolated into this file.
 
 
 
@@ -30,7 +30,7 @@
 
 #include "lnz.hpp"
 #include "os.hpp"
-#include "parse.hpp"
+#include "parser.hpp"
 
 using namespace std;
 
@@ -255,34 +255,6 @@ bool OS::setClip( const string& ) noexcept{
 }
 #endif
 
-// This is the central test function that calls all of the unit tests.
-void OS::test( void ){
-  if( out == nullptr || err == nullptr || in == nullptr || theOS == nullptr ){
-    // I know this isn't informative, but it is uniquely identifying.
-    cerr << "BORK!BORK!BORK!" << endl;
-    terminate();
-  }
-  try{
-    const char* t = nullptr;
-
-    // BUGBUG test OS here. Set t to an error message on error.
-    t = "Doesn't exit.";
-
-    *out << Strings::gs({ "testing", "OS", 
-	  t == nullptr ? Strings::gs({ "success" }) : t }) << endl;
-    t = mainTest();
-    *out << Strings::gs({ "testing", "main", 
-	  t == nullptr ? Strings::gs({ "success" }) : t }) << endl;
-    t = Strings::test();
-    *out << Strings::gs({ "testing", "Strings", 
-	  t == nullptr ? Strings::gs({ "success" }) : t }) << endl;
-    t = Parser::test();
-    *out << Strings::gs({ "testing", "Parser", 
-	  t == nullptr ? Strings::gs({ "success" }) : t }) << endl;
-
-  }catch( const exception& e ){
-    *out << Strings::gs({ "testException", e.what() }) << endl;
-  }catch( ... ){
-    *out << Strings::gs({ "testUnknownException" }) << endl;
-  }
+const char* OS::test( void ){
+  return "Does not exist!";
 }

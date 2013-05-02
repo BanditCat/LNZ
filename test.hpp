@@ -19,43 +19,21 @@
 // (bcj1980@gmail.com) for details.                                           //
 ////////////////////////////////////////////////////////////////////////////////
 
+// Test class header. 
 
+ 
+#ifndef LNZ_TEST_HPP
+#define LNZ_TEST_HPP
 
-Occasionally grep through source for BUGBUG, TODO
+class Test{
+public:
+  // This intercepts exceptions from subtests and reports them instead of 
+  // of propagating them.
+  static void test( void ) noexcept;
+private:
+  inline Test(){};
+  inline ~Test(){};
+};
 
-Do timing in tests.
+#endif // LNZ_TEST_HPP
 
-Write FullInt and StateMachine class, then Tokenizer and Parser.
-
-
-
-
-
-* 1) Exception-safety: Functions should have either noexcept or throw 
-declarations, if this is not possible, then use comments to document exception
-behavior.  Unit tests are allowed to throw anything: Test::test catches
-exceptions from subtests.
-
-* 2) Formatting: spaces everywhere, braces on same line, everything 80 
-columns or less.  Class names are capitalized and nothing else.  Accessor 
-functions should begin with letter g.  Use punctuation unless its next to
-variable text such as a filename.  Output avoid assuming 80 columns.  While
-writing comments do s/we/I/r for the most part.
-
-* 3) Classes should have a static member test function that is the unit test.  
-Place it at the end of the source file for consistency. Make it report timing
-and be sure to thoroughly check edge cases. Calling Test::test calls the other
-unit tests.
-
-* 4) Use OS::gerr(), OS::gin() and OS::gout() over cerr, cin and cout.
-
-* 5) User-facing strings should go in strings.cpp and be accessed by 
-Strings::gs.  This makes it easier to internationalize or spell check and saves
-recompiles.
-
-
-
-
-
-
-Setup repositories for the rest of my code (vislib et al)
