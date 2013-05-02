@@ -1,24 +1,26 @@
 
-strings.hpp,403
+strings.hpp,452
 #define LNZ_STRINGS_HPP26,1803
 class Strings{Strings31,1882
   static std::string gs(Strings::gs39,2311
   static const char* memoryError;Strings::memoryError42,2474
   static const char* fatalOSError;Strings::fatalOSError43,2508
-  static const std::unordered_map<Strings::std::unordered_map46,2553
-  static const std::unordered_map< std::string, std::string > strings;Strings::strings46,2553
+  static const char* test(Strings::test45,2544
+  static const std::unordered_map<Strings::std::unordered_map47,2588
+  static const std::unordered_map< std::string, std::string > strings;Strings::strings47,2588
 
-parse.hpp,272
+parse.hpp,320
 #define LNZ_PARSE_HPP28,1715
 class Parser{Parser33,1781
   Parser(Parser::Parser35,1803
   Parser(Parser::Parser36,1824
   ~Parser(Parser::~Parser37,1860
   void insert(Parser::insert39,1883
-  struct pParser;Parser::pParser41,1938
-  pParser* p;Parser::p42,1956
+  static const char* test(Parser::test41,1930
+  struct pParser;Parser::pParser43,1974
+  pParser* p;Parser::p44,1992
 
-os.hpp,1160
+os.hpp,1528
 #define LNZ_OS_HPP24,1664
 void* operator new(operator new32,1852
 void* operator new[](operator new[]33,1915
@@ -37,17 +39,25 @@ class OS{OS45,2402
   std::string getStandardIn(OS::getStandardIn59,2960
   std::string getFile(OS::getFile62,3135
   void putFile(OS::putFile65,3316
-  void putStandardOut(OS::putStandardOut68,3494
-  static void* lnzmalloc(OS::lnzmalloc72,3654
-  static void lnzfree(OS::lnzfree73,3699
-  static inline const size_t& getMallocCount(OS::getMallocCount75,3753
-  static inline const size_t& getFreeCount(OS::getFreeCount78,3845
-  static OS* theOS;OS::theOS83,3950
-  static size_t mallocCount;OS::mallocCount85,3983
-  static size_t freeCount;OS::freeCount86,4012
-  static bool mallocCounting;OS::mallocCounting87,4039
+  void putStandardOut(OS::putStandardOut69,3506
+  static void* lnzmalloc(OS::lnzmalloc73,3666
+  static void lnzfree(OS::lnzfree74,3711
+  static inline OS& gos(OS::gos78,3772
+  static inline std::ostream& gout(OS::gout79,3822
+  static inline std::ostream& gerr(OS::gerr80,3881
+  static inline std::istream& gin(OS::gin81,3940
+  static void test(OS::test85,4135
+  static inline const size_t& getMallocCount(OS::getMallocCount87,4176
+  static inline const size_t& getFreeCount(OS::getFreeCount90,4264
+  static OS* theOS;OS::theOS96,4368
+  static std::ostream* out;OS::out97,4388
+  static std::ostream* err;OS::err98,4416
+  static std::istream* in;OS::in99,4444
+  static size_t mallocCount;OS::mallocCount101,4484
+  static size_t freeCount;OS::freeCount102,4513
+  static bool mallocCounting;OS::mallocCounting103,4540
 
-lnz.hpp,769
+lnz.hpp,800
 #define LNZ_LNZ_HPP26,1730
 using u8 33,1831
 using u16 34,1857
@@ -70,61 +80,69 @@ class lnzException 94,3490
 class lnzFileException 105,3794
   inline lnzFileException(lnzFileException::lnzFileException107,3848
   inline virtual ~lnzFileException(lnzFileException::~lnzFileException108,3929
+const char* mainTest(116,4113
 
-parse.cpp,656
-using namespace std;34,1766
-struct Parser::pParser{Parser::pParser37,1789
-  unordered_map<Parser::pParser::unordered_map38,1813
-  unordered_map< string, word > symbols;Parser::pParser::symbols38,1813
-  deque< string > reverseSymbols;Parser::pParser::reverseSymbols39,1854
-  word refs;Parser::pParser::refs40,1888
-  void insert(Parser::pParser::insert42,1902
-  pParser* deref(Parser::pParser::deref46,2031
-  pParser(Parser::pParser::pParser55,2174
-  pParser(Parser::pParser::pParser59,2300
-  ~pParser(Parser::pParser::~pParser63,2473
-Parser::Parser(69,2561
-Parser::Parser(74,2673
-Parser::~Parser(79,2795
-void Parser::insert(83,2905
+parse.cpp,690
+using namespace std;35,1784
+struct Parser::pParser{Parser::pParser38,1807
+  unordered_map<Parser::pParser::unordered_map39,1831
+  unordered_map< string, word > symbols;Parser::pParser::symbols39,1831
+  deque< string > reverseSymbols;Parser::pParser::reverseSymbols40,1872
+  word refs;Parser::pParser::refs41,1906
+  void insert(Parser::pParser::insert43,1920
+  pParser* deref(Parser::pParser::deref47,2049
+  pParser(Parser::pParser::pParser56,2192
+  pParser(Parser::pParser::pParser60,2324
+  ~pParser(Parser::pParser::~pParser64,2503
+Parser::Parser(70,2597
+Parser::Parser(75,2715
+Parser::~Parser(80,2843
+void Parser::insert(84,2959
+const char* Parser::test(88,3052
 
-main.cpp,47
+main.cpp,78
 using namespace std;38,1813
 int main(41,1836
+const char* mainTest(179,5892
 
-os.cpp,946
-using namespace std;34,1753
-size_t OS::mallocCount 38,1799
-size_t OS::freeCount 39,1827
-bool OS::mallocCounting 40,1853
-OS* OS::theOS 42,1893
-OS::OS(45,1937
-OS::~OS(56,2128
-void* OS::lnzmalloc(62,2207
-void OS::lnzfree(75,2452
-void* operator new(operator new84,2598
-void* operator new[](operator new[]87,2698
-void* operator new(operator new91,2805
-void* operator new[](operator new[]94,2895
-void* operator new[](operator new[]99,3014
-void operator delete[](operator delete[]102,3110
-void operator delete[](operator delete[]105,3178
-void* operator new(operator new108,3264
-void operator delete(operator delete111,3358
-void operator delete(operator delete114,3424
-void OS::die(122,3625
-string OS::getFile(127,3760
-string OS::getStandardIn(148,4432
-void OS::putFile(161,4849
-void OS::putStandardOut(175,5420
-bool OS::yesOrNo(194,5959
-bool OS::setClip(200,6193
-bool OS::yesOrNo(232,6894
-bool OS::setClip(245,7351
+os.cpp,1049
+using namespace std;35,1774
+size_t OS::mallocCount 39,1820
+size_t OS::freeCount 40,1848
+bool OS::mallocCounting 41,1874
+OS* OS::theOS 43,1914
+ostream* OS::out 44,1939
+ostream* OS::err 45,1967
+istream* OS::in 46,1995
+OS::OS(49,2041
+OS::~OS(63,2283
+void* OS::lnzmalloc(69,2362
+void OS::lnzfree(83,2634
+void* operator new(operator new92,2780
+void* operator new[](operator new[]95,2880
+void* operator new(operator new99,2987
+void* operator new[](operator new[]102,3077
+void* operator new[](operator new[]107,3196
+void operator delete[](operator delete[]110,3292
+void operator delete[](operator delete[]113,3360
+void* operator new(operator new116,3446
+void operator delete(operator delete119,3540
+void operator delete(operator delete122,3606
+void OS::die(130,3807
+string OS::getFile(135,3942
+string OS::getStandardIn(156,4614
+void OS::putFile(169,5061
+void OS::putStandardOut(183,5632
+bool OS::yesOrNo(202,6189
+bool OS::setClip(208,6423
+bool OS::yesOrNo(240,7124
+bool OS::setClip(253,7605
+void OS::test(259,7746
 
-strings.cpp,206
+strings.cpp,242
 using namespace std;32,1838
 const char* Strings::memoryError 34,1860
 const char* Strings::fatalOSError 35,1941
 const unordered_map< string, string > Strings::strings 37,2012
-string Strings::gs(80,4001
+string Strings::gs(97,4535
+const char* Strings::test(134,5320

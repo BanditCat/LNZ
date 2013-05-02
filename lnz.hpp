@@ -111,4 +111,8 @@ public:
 // Include strings file.
 #include "strings.hpp"
 
+
+// The function that tests main gets declared here, so we can call it in OS
+const char* mainTest( void );
+
 #endif //LNZ_LNZ_HPP

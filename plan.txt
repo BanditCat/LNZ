@@ -21,30 +21,37 @@
 
 
 
-Make strings hide behind a function so adding a string doesn't force a
-recompile.  Use constexpr.
-
 Occasionally grep through source for BUGBUG, TODO
 
-Make Testable base class, make all classes be children. Write unit tests.
+Do timing in tests.
 
 Write FullInt and StateMachine class, then Tokenizer and Parser.
 
 
-Add warranty boilerplate to help message.
-
-Do timing in tests.
 
 
-
-write custom exceptions and handle them so OS::die throws
 
 Rule 1) Exception-safety: all functions in all headers have either noexcept or 
 throw declarations, if this is not possible, then use comments to document 
 exception behavior.
 
-Rule 2) Formatting: spaces everywhere, braces on same line, everything 80 columns or 
-less
+Rule 2) Formatting: spaces everywhere, braces on same line, everything 80 
+columns or less.  Class names are capitalized and nothing else.  Accessor 
+functions should begin with letter g.  Use punctuation unless its next to
+variable text such as a filename.  Output avoid assuming 80 columns.
+
+Rule 3) Every class has a static member test function that is the unit test.  
+Place it at the end of the source file for consitency.  Make it report timing
+and be sure to thoroughly check edge cases. Calling OS::test calls all unit 
+tests.
+
+Rule 4) All input is done through OS::gin() and OS::gout()
+
+Rule 5) All user-facing strings should go in strings.cpp and be accessed by 
+Strings::gs.  This makes it easier to internationalize or spell check and saves
+recompiles.
+
+
 
 
 

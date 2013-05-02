@@ -64,23 +64,39 @@ public:
   // the file already exists.
   void putFile( const std::string& filename, const std::string& data )
     throw( lnzFileException );
-  // Writes to cout in one operation, throwing a lnzFileException on error.
+  // Writes to OS::gout() in one operation, throwing a lnzFileException on 
+  // error.
   void putStandardOut( const std::string& data ) 
     throw( lnzFileException );
 
   // These are allocation wrapper functions to enable cheesy malloc counting.
   static void* lnzmalloc( size_t ) noexcept;
   static void lnzfree( void* ) noexcept;
+  
+
+  // Accessors.
+  static inline OS& gos( void ){ return *theOS; }
+  static inline std::ostream& gout( void ){ return *out; }
+  static inline std::ostream& gerr( void ){ return *err; }
+  static inline std::istream& gin( void ){ return *in; }
+
+  // The Unit Test(tm).  This one calls the others and does it's own reporting
+  // on OS::gout(), so it doesn't need to return a value.
+  static void test( void );
 #ifdef DEBUG
   static inline const size_t& getMallocCount( void ) noexcept{
-    return mallocCount; 
-  }
+  return mallocCount; 
+}
   static inline const size_t& getFreeCount( void ) noexcept{ 
-    return freeCount; 
-  }
+  return freeCount; 
+}
 #endif
+  
 private:
   static OS* theOS;
+  static std::ostream* out;
+  static std::ostream* err;
+  static std::istream* in;
 #ifdef DEBUG
   static size_t mallocCount;
   static size_t freeCount;

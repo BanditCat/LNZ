@@ -35,30 +35,36 @@ const char* Strings::memoryError = "Memory error! You are probably out of RAM!";
 const char* Strings::fatalOSError = "Fatal OS error! Irrecoverable!";
 
 const unordered_map< string, string > Strings::strings = {
+  { "success", "Success!" },
   { "expressionFlag", "-e" },
   { "outFileFlag", "-o" },
   { "helpFlag", "-h" },
+  { "testFlag", "-t" },
   { "expressionFlagError", 
     "Error: expected an expression to follow -e." },
   { "outFileFlagError", 
     "Error: expected a filename to follow -o." },
   { "commandLineExpression", 
     "<command line expression %1>" },
+  // Usage information.
   { "usageMessage", 
-    "LNZ Copyright (C) 2013 Jon DuBois.\n"
-    "This program comes with ABSOLUTELY NO WARRANTY. This is free software,\n"
-    "and you are welcome to redistribute it under certain conditions; See the\n"
+    "\nLNZ Copyright (C) 2013 Jon DuBois.\n"
+    "This program comes with ABSOLUTELY NO WARRANTY. This is free software, "
+    "and you are welcome to redistribute it under certain conditions; See the "
     "file LICENSE for details.\n\n" 
+
     "Each argument must be in one of the following forms:\n"
-    "  <filename>      loads file and parses it.\n"
-    "  -o <filename>   writes output to file, usable more than once.\n"
-    "  -e <expression> evaluates an expression, usable more than once.\n"
-    "  -h              display this help.\n"
-    "                  If no expressions or input files are specified, or -\n"
-    "                  is specified as an input file, the program reads from\n"
-    "                  standard input until EOF (ctrl-d). If no output files\n"
-    "                  are specified or - is specified as an output file, the\n"
-    "                  program will output to standard output.\n" },
+    "  <filename>      Loads file and parses it.\n"
+    "  -o <filename>   Writes output to file, usable more than once.\n"
+    "  -e <expression> Evaluates an expression, usable more than once.\n"
+    "  -t              Explicitly run sanity tests.\n"
+    "  -h              Display this help.\n\n"
+    
+    "  If no expressions or input files are specified, the default behavior is "
+    "to run tests. If - as given as a file, standard input is read from until "
+    "EOF (ctrl-d). If no output files are specified or - is specified as an "
+    "output file, the program will output to standard output.\n\n" },
+
   { "fileOpenError", "Failed to open file: %1" },
   { "fileReadError", "Failed to read file: %1" },
   { "fileWriteError", 
@@ -75,6 +81,17 @@ const unordered_map< string, string > Strings::strings = {
   { "flagError", "Unrecognized flag %1" },
   { "fatalError", "Fatal Error!" },
   { "clipboardQuestion", "Copy to clipboard?" },
+  { "commandLineOSError", "argv was null!  ARGV WAS NULL!!!! NUULLLLLLL!" },
+#ifdef DEBUG
+  { "memoryAllocations", "There were %1 allocations." },
+  { "memoryFrees", "There were %1 frees." },
+  { "memoryLeaks", "There were %1 memory leaks." },
+#endif
+  { "testException", 
+  "\n\nAn exception occurred while testing with this message:\n%1\n\n" },
+  { "testUnknownException", 
+  "\n\nAn unknown exception occurred while testing!\n\n" },
+  { "testing", "Testing %1... %2" },
 };
 
 string Strings::gs( initializer_list< string > args ) noexcept{
@@ -106,10 +123,14 @@ string Strings::gs( initializer_list< string > args ) noexcept{
 	while( argn-- )
 	  ++argsb;
 	ans << *argsb;
+	argn = 0;
       }	
     }else
       ans << *b++;
   }
     
   return ans.str();
+}
+const char* Strings::test( void ){
+  return "Doesn't exist";
 }

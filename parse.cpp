@@ -29,6 +29,7 @@
 #include <stack>
 
 #include "lnz.hpp"
+#include "os.hpp"
 #include "parse.hpp"
 
 using namespace std;
@@ -53,34 +54,37 @@ struct Parser::pParser{
    
 
   pParser( void ) noexcept : symbols(), reverseSymbols(), refs( 0 ){
-    cerr << "    Constructing pParser..." << endl;
+    OS::gerr() << "    Constructing pParser..." << endl;
   }
  
   pParser( const pParser& c ) noexcept : 
   symbols( c.symbols ), reverseSymbols( c.reverseSymbols ), refs( 0 ){
-    cerr << "    Copy constructing pParser..." << endl;
+    OS::gerr() << "    Copy constructing pParser..." << endl;
   }
   ~pParser( void ) noexcept{
-    cerr << "    Destructing pParser..." << endl;
+    OS::gerr() << "    Destructing pParser..." << endl;
   }
 };
 
 
 Parser::Parser( void ) noexcept{
-  cerr << "  Constructing Parser..." <<endl;
+  OS::gerr() << "  Constructing Parser..." <<endl;
   p = new pParser;
   ++p->refs;
 }
 Parser::Parser( const Parser& cp ) noexcept{
-  cerr << "  Copy constructing Parser..." <<endl;
+  OS::gerr() << "  Copy constructing Parser..." <<endl;
   p = cp.p;
   ++p->refs;
 }
 Parser::~Parser( void ) noexcept{
   if( !--p->refs ) delete p;
-  cerr << "  Destructing Parser..." << endl;
+  OS::gerr() << "  Destructing Parser..." << endl;
 }
 void Parser::insert( const string& name ) noexcept{
   p = p->deref();
   p->insert( name );
+}
+const char* Parser::test( void ){
+  return "Doesn't exist";
 }

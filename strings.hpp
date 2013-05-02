@@ -42,6 +42,7 @@ public:
   static const char* memoryError;
   static const char* fatalOSError;
 
+  static const char* test( void );
 private:
   static const std::unordered_map< std::string, std::string > strings;
 };

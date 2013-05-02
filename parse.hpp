@@ -37,6 +37,8 @@ public:
   ~Parser() noexcept;
 
   void insert( const std::string& ) noexcept;
+
+  static const char* test( void );
 private:
   struct pParser;
   pParser* p;

@@ -30,6 +30,7 @@
 
 #include "lnz.hpp"
 #include "os.hpp"
+#include "parse.hpp"
 
 using namespace std;
 
@@ -40,12 +41,18 @@ size_t OS::freeCount = 0;
 bool OS::mallocCounting = false;
 #endif
 OS* OS::theOS = nullptr;
+ostream* OS::out = nullptr;
+ostream* OS::err = nullptr;
+istream* OS::in = nullptr;
 
 // NO ALLOCATION!
 OS::OS( void ) noexcept{
-  if( theOS == nullptr )
+  if( theOS == nullptr ){
     theOS = this;
-  else{
+    out = &cout;
+    in = &cin;
+    err = &cerr;
+  }else{
     cerr << Strings::fatalOSError << endl;
     terminate();
   }
@@ -62,7 +69,8 @@ OS::~OS( void ) noexcept{
 void* OS::lnzmalloc( size_t sz ) noexcept{
   void* ans = malloc( sz );
   if( ans == nullptr ){
-    cerr << Strings::memoryError << endl;
+    if( err != nullptr )
+      *err << Strings::memoryError << endl;
     terminate();
   }
 #ifdef DEBUG
@@ -148,12 +156,12 @@ string OS::getFile( const string& filename ) throw( lnzFileException ){
 string OS::getStandardIn( void ) throw( lnzFileException ){
   ostringstream oss;
   char buf[ fileBufferSize + 1 ];
-  while( cin.good() ){
-    cin.read( buf, fileBufferSize );
-    buf[ cin.gcount() ] = '\0';                      
-    oss << string( buf, cin.gcount() );
+  while( OS::gin().good() ){
+    OS::gin().read( buf, fileBufferSize );
+    buf[ OS::gin().gcount() ] = '\0';                      
+    oss << string( buf, OS::gin().gcount() );
   }
-  if( cin.bad() )
+  if( OS::gin().bad() )
     throw lnzFileException( Strings::gs({ "fileReadError", 
 	    Strings::gs({ "standardInput" }) }) );
   return oss.str();
@@ -173,9 +181,9 @@ void OS::putFile( const string& filename, const string& data )
     throw lnzFileException( Strings::gs({ "fileOpenError", filename }) );
 }
 void OS::putStandardOut( const string& data ) throw( lnzFileException ){
-  if( cout.good() ){
-    cout.write( data.c_str(), data.size() );
-    if( cout.bad() )
+  if( OS::gout().good() ){
+    OS::gout().write( data.c_str(), data.size() );
+    if( OS::gout().bad() )
       throw lnzFileException( Strings::gs({ "fileWriteError", 
 	      Strings::gs({ "standardOutput" }) }) );
   }else
@@ -230,14 +238,14 @@ bool OS::setClip( const string& msg ) noexcept{
 // BUGBUG implement.
 #ifdef ANDROID
 bool OS::yesOrNo( const string& question, const string& header ) noexcept{
-  cout << "\n\n\t" << header << endl << question << endl <<
+  OS::gout() << "\n\n\t" << header << endl << question << endl <<
     Strings::gs({ "yesOrNoPrompt" });
   char cs[ 2 ] = { 0, 0 };
-  cs[ 0 ] = cin.get();
+  cs[ 0 ] = OS::gin().get();
   string c = cs;
   while( c != Strings::gs({ "yesChar" }) && c != Strings::gs({ "noChar" }) ){
-    cout << endl << Strings::gs({ "yesOrNoPrompt" });
-    cs[ 0 ] = cin.get();
+    OS::gout() << endl << Strings::gs({ "yesOrNoPrompt" });
+    cs[ 0 ] = OS::gin().get();
     c = cs;
   }
   return c == Strings::gs({ "yesChar" });
@@ -246,3 +254,35 @@ bool OS::setClip( const string& ) noexcept{
   return false;
 }
 #endif
+
+// This is the central test function that calls all of the unit tests.
+void OS::test( void ){
+  if( out == nullptr || err == nullptr || in == nullptr || theOS == nullptr ){
+    // I know this isn't informative, but it is uniquely identifying.
+    cerr << "BORK!BORK!BORK!" << endl;
+    terminate();
+  }
+  try{
+    const char* t = nullptr;
+
+    // BUGBUG test OS here. Set t to an error message on error.
+    t = "Doesn't exit.";
+
+    *out << Strings::gs({ "testing", "OS", 
+	  t == nullptr ? Strings::gs({ "success" }) : t }) << endl;
+    t = mainTest();
+    *out << Strings::gs({ "testing", "main", 
+	  t == nullptr ? Strings::gs({ "success" }) : t }) << endl;
+    t = Strings::test();
+    *out << Strings::gs({ "testing", "Strings", 
+	  t == nullptr ? Strings::gs({ "success" }) : t }) << endl;
+    t = Parser::test();
+    *out << Strings::gs({ "testing", "Parser", 
+	  t == nullptr ? Strings::gs({ "success" }) : t }) << endl;
+
+  }catch( const exception& e ){
+    *out << Strings::gs({ "testException", e.what() }) << endl;
+  }catch( ... ){
+    *out << Strings::gs({ "testUnknownException" }) << endl;
+  }
+}
