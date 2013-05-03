@@ -35,7 +35,7 @@ const char* Strings::memoryError = "Memory error! You are probably out of RAM!";
 const char* Strings::fatalOSError = "Fatal OS error! Irrecoverable!";
 
 const unordered_map< string, string > Strings::strings = {
-  { "success", "Success!" },
+  { "nullTest", "Failure: test does not exist!" },
   { "expressionFlag", "-e" },
   { "outFileFlag", "-o" },
   { "helpFlag", "-h" },
@@ -132,5 +132,5 @@ string Strings::gs( initializer_list< string > args ) noexcept{
   return ans.str();
 }
 const char* Strings::test( void ){
-  return "Doesn't exist";
+  return nullptr;
 }

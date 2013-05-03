@@ -178,5 +178,5 @@ int main( int argc, char* argv[] ) noexcept{
 
 
 const char* mainTest( void ){
-  return "Doesn't exist";
+  return nullptr;
 }

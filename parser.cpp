@@ -86,5 +86,5 @@ void Parser::insert( const string& name ) noexcept{
   p->insert( name );
 }
 const char* Parser::test( void ){
-  return "Doesn't exist";
+  return nullptr;
 }

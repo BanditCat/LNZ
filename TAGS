@@ -27,7 +27,7 @@ class Parser{Parser33,1783
   struct pParser;Parser::pParser43,1994
   pParser* p;Parser::p44,2012
 
-os.hpp,1591
+os.hpp,1589
 #define LNZ_OS_HPP25,1656
 void* operator new(operator new33,1841
 void* operator new[](operator new[]34,1904
@@ -54,16 +54,16 @@ class OS{OS46,2391
   static inline std::ostream& gerr(OS::gerr81,3870
   static inline std::istream& gin(OS::gin82,3929
   static inline bool gexistent(OS::gexistent83,3986
-  static const char* test(OS::test87,4191
-  static inline const size_t& getMallocCount(OS::getMallocCount89,4257
-  static inline const size_t& getFreeCount(OS::getFreeCount92,4345
-  static OS* theOS;OS::theOS98,4449
-  static std::ostream* out;OS::out99,4469
-  static std::ostream* err;OS::err100,4497
-  static std::istream* in;OS::in101,4525
-  static size_t mallocCount;OS::mallocCount103,4565
-  static size_t freeCount;OS::freeCount104,4594
-  static bool mallocCounting;OS::mallocCounting105,4621
+  static const char* test(OS::test85,4054
+  static inline const size_t& getMallocCount(OS::getMallocCount87,4120
+  static inline const size_t& getFreeCount(OS::getFreeCount90,4208
+  static OS* theOS;OS::theOS96,4312
+  static std::ostream* out;OS::out97,4332
+  static std::ostream* err;OS::err98,4360
+  static std::istream* in;OS::in99,4388
+  static size_t mallocCount;OS::mallocCount101,4428
+  static size_t freeCount;OS::freeCount102,4457
+  static bool mallocCounting;OS::mallocCounting103,4484
 
 lnz.hpp,800
 #define LNZ_LNZ_HPP26,1730
@@ -156,5 +156,5 @@ using namespace std;32,1838
 const char* Strings::memoryError 34,1860
 const char* Strings::fatalOSError 35,1941
 const unordered_map< string, string > Strings::strings 37,2012
-string Strings::gs(97,4535
-const char* Strings::test(134,5319
+string Strings::gs(97,4557
+const char* Strings::test(134,5341

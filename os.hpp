@@ -82,8 +82,6 @@ public:
   static inline std::istream& gin( void ){ return *in; }
   static inline bool gexistent( void ){ return theOS != nullptr; }
 
-  // The Unit Test(tm).  This one calls the others and does it's own reporting
-  // on OS::gout(), so it doesn't need to return a value.
   static const char* test( void ) noexcept( false );
 #ifdef DEBUG
   static inline const size_t& getMallocCount( void ) noexcept{

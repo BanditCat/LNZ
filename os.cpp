@@ -256,5 +256,5 @@ bool OS::setClip( const string& ) noexcept{
 #endif
 
 const char* OS::test( void ){
-  return "Does not exist!";
+  return nullptr;
 }
