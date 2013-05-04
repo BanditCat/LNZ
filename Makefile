@@ -32,9 +32,6 @@ CPPFLAGS=-std=c++11 -Wall -fexceptions -pedantic -Wextra -Werror -c
 LD=g++
 LDFLAGS=
 
-# Test flag.
-TARGETTESTFLAG=-t
-
 # OS Detection.
 UNAME=$(shell uname) 
 ifeq ($(UNAME), MINGW32_NT-6.1 )
@@ -67,7 +64,6 @@ TAGS: $(SRCS)
 
 .PHONY: release 
 release: clean $(TARGET)
-	./$(TARGET) $(TARGETTESTFLAG)
 ifeq ($(OSNAME), windows)
 release: CPPFLAGS:=-O4 -DWINDOWS -flto $(CPPFLAGS)
 release: LDFLAGS:=-O4 -flto $(LDFLAGS)
@@ -81,7 +77,6 @@ endif
 
 .PHONY: debug 
 debug: $(TARGET)
-	./$(TARGET) $(TARGETTESTFLAG)
 ifeq ($(OSNAME), windows)
 debug: CPPFLAGS:=-DWINDOWS -DDEBUG $(CPPFLAGS)
 endif

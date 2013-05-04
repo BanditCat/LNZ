@@ -1,3 +1,3 @@
-LNZ0.1a OS unit test.
+LNZ0.1a Strange behavior, the exe is getting permission denied issues.
 
 

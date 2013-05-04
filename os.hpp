@@ -70,6 +70,12 @@ public:
   void putStandardOut( const std::string& data ) 
     throw( lnzFileException );
 
+  // Timer functions.
+  u64 time( void );
+  u64 timesPerSecond( void );
+  u64 timeDifference( u64, u64 );
+    
+
   // These are allocation wrapper functions to enable cheesy malloc counting.
   static void* lnzmalloc( size_t ) noexcept;
   static void lnzfree( void* ) noexcept;
@@ -84,14 +90,14 @@ public:
 
   static const char* test( void ) noexcept( false );
 #ifdef DEBUG
-  static inline const size_t& getMallocCount( void ) noexcept{
-  return mallocCount; 
-}
+  static inline const size_t& getMallocCount( void ) noexcept{ 
+    return mallocCount; 
+  }
   static inline const size_t& getFreeCount( void ) noexcept{ 
-  return freeCount; 
-}
+    return freeCount; 
+  }
 #endif
-  
+
 private:
   static OS* theOS;
   static std::ostream* out;
@@ -102,6 +108,10 @@ private:
   static size_t freeCount;
   static bool mallocCounting;
 #endif
+
+  // Testing framework.  Coincidentally, these are the functions that change
+  // from platform to platform.
+  
 };
     
   

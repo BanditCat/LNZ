@@ -38,11 +38,27 @@
 
 using namespace std;
 
-
+//BUGBUG
+#include <time.h>
 int main( int argc, char* argv[] ) noexcept{
   OS os;
   int ret = EXIT_SUCCESS;
-  //BUGBUG
+
+  cout << endl << os.timesPerSecond() << endl;
+  {
+    u64 q = os.timesPerSecond();
+    u64 p = os.time();
+    u32 t;
+    u32 s = 0;
+    while( os.time() - p < q ){
+      t = 0;
+      while( t < 1000000 )
+	++t;
+      ++s;
+    }
+    cout << t / 1000000.0f + s  << " bogomips" << endl;
+  }
+
   try{
     string name = "<unknown name>";
     deque< string > args;

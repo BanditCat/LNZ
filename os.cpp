@@ -192,12 +192,28 @@ void OS::putStandardOut( const string& data ) throw( lnzFileException ){
 }
 
 
+
 ////////////////////////////////////////////////////////////////////////////////
 // Platform dependent sections.
 
 #ifdef WINDOWS
 
 #include <windows.h>
+
+u64 OS::time( void ){
+  LARGE_INTEGER li;
+  QueryPerformanceCounter( &li );
+  return li.QuadPart;
+}
+u64 OS::timesPerSecond( void ){
+  LARGE_INTEGER li;
+  QueryPerformanceFrequency( &li );
+  return li.QuadPart;
+}
+// This works on the domain of unsigned integers even with overflow.
+u64 OS::timeDifference( u64 start, u64 end ){
+  return end - start;
+}
 
 bool OS::yesOrNo( const string& question, const string& header ) noexcept{
   return MessageBoxA( nullptr, question.c_str(), header.c_str(), 

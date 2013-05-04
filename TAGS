@@ -27,7 +27,7 @@ class Parser{Parser33,1783
   struct pParser;Parser::pParser43,1994
   pParser* p;Parser::p44,2012
 
-os.hpp,1589
+os.hpp,1720
 #define LNZ_OS_HPP25,1656
 void* operator new(operator new33,1841
 void* operator new[](operator new[]34,1904
@@ -47,23 +47,26 @@ class OS{OS46,2391
   std::string getFile(OS::getFile63,3124
   void putFile(OS::putFile66,3305
   void putStandardOut(OS::putStandardOut70,3495
-  static void* lnzmalloc(OS::lnzmalloc74,3655
-  static void lnzfree(OS::lnzfree75,3700
-  static inline OS& gos(OS::gos79,3761
-  static inline std::ostream& gout(OS::gout80,3811
-  static inline std::ostream& gerr(OS::gerr81,3870
-  static inline std::istream& gin(OS::gin82,3929
-  static inline bool gexistent(OS::gexistent83,3986
-  static const char* test(OS::test85,4054
-  static inline const size_t& getMallocCount(OS::getMallocCount87,4120
-  static inline const size_t& getFreeCount(OS::getFreeCount90,4208
-  static OS* theOS;OS::theOS96,4312
-  static std::ostream* out;OS::out97,4332
-  static std::ostream* err;OS::err98,4360
-  static std::istream* in;OS::in99,4388
-  static size_t mallocCount;OS::mallocCount101,4428
-  static size_t freeCount;OS::freeCount102,4457
-  static bool mallocCounting;OS::mallocCounting103,4484
+  u64 time(OS::time74,3599
+  u64 timesPerSecond(OS::timesPerSecond75,3619
+  u64 timeDifference(OS::timeDifference76,3649
+  static void* lnzmalloc(OS::lnzmalloc80,3767
+  static void lnzfree(OS::lnzfree81,3812
+  static inline OS& gos(OS::gos85,3873
+  static inline std::ostream& gout(OS::gout86,3923
+  static inline std::ostream& gerr(OS::gerr87,3982
+  static inline std::istream& gin(OS::gin88,4041
+  static inline bool gexistent(OS::gexistent89,4098
+  static const char* test(OS::test91,4166
+  static inline const size_t& getMallocCount(OS::getMallocCount93,4232
+  static inline const size_t& getFreeCount(OS::getFreeCount96,4325
+  static OS* theOS;OS::theOS102,4431
+  static std::ostream* out;OS::out103,4451
+  static std::ostream* err;OS::err104,4479
+  static std::istream* in;OS::in105,4507
+  static size_t mallocCount;OS::mallocCount107,4547
+  static size_t freeCount;OS::freeCount108,4576
+  static bool mallocCounting;OS::mallocCounting109,4603
 
 lnz.hpp,800
 #define LNZ_LNZ_HPP26,1730
@@ -96,8 +99,8 @@ void Test::test(35,1763
 
 main.cpp,78
 using namespace std;39,1834
-int main(42,1857
-const char* mainTest(180,5908
+int main(43,1883
+const char* mainTest(196,6213
 
 parser.cpp,690
 using namespace std;35,1785
@@ -117,7 +120,7 @@ Parser::~Parser(80,2844
 void Parser::insert(84,2960
 const char* Parser::test(88,3053
 
-os.cpp,1056
+os.cpp,1145
 using namespace std;35,1802
 size_t OS::mallocCount 39,1848
 size_t OS::freeCount 40,1876
@@ -145,11 +148,14 @@ string OS::getFile(135,3970
 string OS::getStandardIn(156,4642
 void OS::putFile(169,5089
 void OS::putStandardOut(183,5660
-bool OS::yesOrNo(202,6217
-bool OS::setClip(208,6451
-bool OS::yesOrNo(240,7152
-bool OS::setClip(253,7633
-const char* OS::test(258,7703
+u64 OS::time(203,6218
+u64 OS::timesPerSecond(208,6318
+u64 OS::timeDifference(214,6499
+bool OS::yesOrNo(218,6570
+bool OS::setClip(224,6804
+bool OS::yesOrNo(256,7505
+bool OS::setClip(269,7986
+const char* OS::test(274,8056
 
 strings.cpp,242
 using namespace std;32,1838
