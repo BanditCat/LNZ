@@ -42,10 +42,9 @@ public:
   static const char* memoryError;
   static const char* fatalOSError;
 
-  static const char* test( void ) noexcept( false );
+  static std::string test( void ) noexcept( false );
 private:
   static const std::unordered_map< std::string, std::string > strings;
 };
  
 #endif // LNZ_STRINGS_HPP
-

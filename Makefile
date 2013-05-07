@@ -36,10 +36,12 @@ LDFLAGS=
 UNAME=$(shell uname) 
 ifeq ($(UNAME), MINGW32_NT-6.1 )
 TARGET=lnz.exe
+TARGETDEFINE=-DWINDOWS
 OSNAME=windows
 endif
 ifeq ($(UNAME), Linux )
 TARGET=lnz
+TARGETDEFINE=-DANDROID
 OSNAME=android
 endif
 
@@ -63,36 +65,31 @@ TAGS: $(SRCS)
 
 
 .PHONY: release 
-release: clean $(TARGET)
+release: $(TARGET)
 ifeq ($(OSNAME), windows)
-release: CPPFLAGS:=-O4 -DWINDOWS -flto $(CPPFLAGS)
+release: CPPFLAGS:=-O4 $(TARGETDEFINE) -flto $(CPPFLAGS)
 release: LDFLAGS:=-O4 -flto $(LDFLAGS)
 release: STRIP:=strip -p $(TARGET)
 endif
 ifeq ($(OSNAME), android)
-release: CPPFLAGS:=-O4 -DANDROID $(CPPFLAGS)
+release: CPPFLAGS:=-O4 $(TARGETDEFINE) $(CPPFLAGS)
 release: LDFLAGS:=-O4 $(LDFLAGS)
 release: STRIP:=strip -p $(TARGET)
 endif
 
 .PHONY: debug 
 debug: $(TARGET)
-ifeq ($(OSNAME), windows)
-debug: CPPFLAGS:=-DWINDOWS -DDEBUG $(CPPFLAGS)
-endif
-ifeq ($(OSNAME), android)
-debug: CPPFLAGS:=-DANDROID -DDEBUG $(CPPFLAGS)
-endif
+debug: CPPFLAGS:=$(TARGETDEFINE) -DDEBUG $(CPPFLAGS)
 
 
 .PHONY: clean
 clean:
 	rm -f ./*.o $(TARGET)
 
-.PHONY: backup
+.PHONY: backu
 backup:
 	make -C ../ backup
 
 .PHONY: depend
 depend:
-	gcc -std=c++11 -MM $(CPPS) > ./deps
+	gcc -std=c++11 $(TARGETDEFINE) -MM $(CPPS) > ./deps

@@ -190,6 +190,10 @@ void OS::putStandardOut( const string& data ) throw( lnzFileException ){
     throw lnzFileException( Strings::gs({ "fileOpenError", 
 	    Strings::gs({ "standardOutput" }) }) );
 }
+// This works on the domain of unsigned integers even with overflow. 
+u64 OS::timeDifference( u64 start, u64 end ) noexcept{
+  return end - start;
+}
 
 
 
@@ -197,80 +201,29 @@ void OS::putStandardOut( const string& data ) throw( lnzFileException ){
 // Platform dependent sections.
 
 #ifdef WINDOWS
-
-#include <windows.h>
-
-u64 OS::time( void ){
-  LARGE_INTEGER li;
-  QueryPerformanceCounter( &li );
-  return li.QuadPart;
-}
-u64 OS::timesPerSecond( void ){
-  LARGE_INTEGER li;
-  QueryPerformanceFrequency( &li );
-  return li.QuadPart;
-}
-// This works on the domain of unsigned integers even with overflow.
-u64 OS::timeDifference( u64 start, u64 end ){
-  return end - start;
-}
-
-bool OS::yesOrNo( const string& question, const string& header ) noexcept{
-  return MessageBoxA( nullptr, question.c_str(), header.c_str(), 
-                      MB_OK | MB_ICONQUESTION | MB_SYSTEMMODAL | MB_YESNO )
-    == IDYES;
-}
-
-bool OS::setClip( const string& msg ) noexcept{
-  void* hnd;
-  u8* tp = nullptr;
-  if( !OpenClipboard( nullptr ) ){
-    return false;
-  }
-  if( !EmptyClipboard() ){
-    CloseClipboard();
-    return false;
-  }
-  if( ( ( hnd = GlobalAlloc( GMEM_MOVEABLE, msg.size() + 2 ) ) == nullptr ) ||
-      ( ( tp = (u8*)GlobalLock( hnd ) ) == nullptr ) ){
-    if( hnd )
-      GlobalFree( hnd );
-    CloseClipboard();
-    return false;
-  }
-  
-  memcpy( tp, msg.c_str(), msg.size() );
-  tp[ msg.size() ] = '\0';
-  GlobalUnlock( hnd );
-  if( SetClipboardData( CF_TEXT, tp ) == nullptr ){;
-    CloseClipboard(); 
-    return false;
-  }
-  CloseClipboard(); 
-  return true;
-}
-
+#include "os/windows.hpp"
 #endif
-// BUGBUG implement.
 #ifdef ANDROID
-bool OS::yesOrNo( const string& question, const string& header ) noexcept{
-  OS::gout() << "\n\n\t" << header << endl << question << endl <<
-    Strings::gs({ "yesOrNoPrompt" });
-  char cs[ 2 ] = { 0, 0 };
-  cs[ 0 ] = OS::gin().get();
-  string c = cs;
-  while( c != Strings::gs({ "yesChar" }) && c != Strings::gs({ "noChar" }) ){
-    OS::gout() << endl << Strings::gs({ "yesOrNoPrompt" });
-    cs[ 0 ] = OS::gin().get();
-    c = cs;
-  }
-  return c == Strings::gs({ "yesChar" });
-}
-bool OS::setClip( const string& ) noexcept{
-  return false;
-}
+#include "os/android.hpp"
 #endif
 
-const char* OS::test( void ){
-  return nullptr;
+string OS::test( void ){
+  OS& os = *theOS;
+
+  u64 q = os.cpuTimesPerSecond();
+  u64 p = os.cpuTime();
+  u64 pt = os.time();
+  u32 t;
+  u32 ts[ 1000 ] = { 0 };
+  while( os.timeDifference( p, os.cpuTime() ) < q / 10 ){
+    t = 0;
+    while( t < 1000 )
+      ++ts[ t++ ];
+  }
+  pt = os.timeDifference( pt, os.time() );
+  
+  ostringstream ans;
+  ans << ts[ ts[ 0 ] % 1000 ] / 100.0 << " bogomips at ";
+  ans << os.timesPerSecond() * 10.0 / pt << "% realtime.";
+  return ans.str();
 }

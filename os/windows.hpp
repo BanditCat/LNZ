@@ -19,72 +19,63 @@
 // (bcj1980@gmail.com) for details.                                           //
 ////////////////////////////////////////////////////////////////////////////////
 
-// Parsing class. 
+// This is the windows specific code. Include this in os.cpp.
 
+#include <windows.h>
 
-
-#include <iostream>
-#include <cstdlib>
-#include <unordered_map>
-#include <stack>
-
-#include "lnz.hpp"
-#include "os.hpp"
-#include "parser.hpp"
-
-using namespace std;
-
-
-struct Parser::pParser{
-  unordered_map< string, word > symbols;
-  deque< string > reverseSymbols;
-  word refs;
-
-  void insert( const string& name ) noexcept{
-    symbols[ name ] = symbols.size();
-    reverseSymbols.emplace_back( name );
-  }
-  pParser* deref( void ) noexcept{
-    if( refs != 1 ){
-      --refs;
-      return new pParser( *this );
-    }else
-      return this;
-  }
-   
-
-  pParser( void ) noexcept : symbols(), reverseSymbols(), refs( 0 ){
-    OS::gerr() << "    Constructing pParser..." << endl;
-  }
- 
-  pParser( const pParser& c ) noexcept : 
-  symbols( c.symbols ), reverseSymbols( c.reverseSymbols ), refs( 0 ){
-    OS::gerr() << "    Copy constructing pParser..." << endl;
-  }
-  ~pParser( void ) noexcept{
-    OS::gerr() << "    Destructing pParser..." << endl;
-  }
-};
-
-
-Parser::Parser( void ) noexcept{
-  OS::gerr() << "  Constructing Parser..." <<endl;
-  p = new pParser;
-  ++p->refs;
+u64 OS::time( void ) noexcept{
+  LARGE_INTEGER li;
+  QueryPerformanceCounter( &li );
+  return li.QuadPart;
 }
-Parser::Parser( const Parser& cp ) noexcept{
-  OS::gerr() << "  Copy constructing Parser..." <<endl;
-  p = cp.p;
-  ++p->refs;
+u64 OS::cpuTime( void ) noexcept{
+  FILETIME ct, et, kt, ut;
+  u64 kt64, ut64;
+  GetProcessTimes( GetCurrentProcess(), &ct, &et, &kt, &ut );
+  kt64 = ( u64( kt.dwHighDateTime ) << 32 ) + kt.dwLowDateTime;
+  ut64 = ( u64( ut.dwHighDateTime ) << 32 ) + ut.dwLowDateTime;
+  return kt64 + ut64;
 }
-Parser::~Parser( void ) noexcept{
-  if( !--p->refs ) delete p;
-  OS::gerr() << "  Destructing Parser..." << endl;
+u64 OS::timesPerSecond( void ) noexcept{
+  LARGE_INTEGER li;
+  QueryPerformanceFrequency( &li );
+  return li.QuadPart;
 }
-void Parser::insert( const string& name ) noexcept{
-  p = p->deref();
-  p->insert( name );
+u64 OS::cpuTimesPerSecond( void ) noexcept{
+  return 10000000;
 }
-string Parser::test( void ){
-  return "";
+
+bool OS::yesOrNo( const string& question, const string& header ) noexcept{
+  return MessageBoxA( nullptr, question.c_str(), header.c_str(), 
+                      MB_OK | MB_ICONQUESTION | MB_SYSTEMMODAL | MB_YESNO )
+    == IDYES;
+}
+
+bool OS::setClip( const string& msg ) noexcept{
+  void* hnd;
+  u8* tp = nullptr;
+  if( !OpenClipboard( nullptr ) ){
+    return false;
+  }
+  if( !EmptyClipboard() ){
+    CloseClipboard();
+    return false;
+  }
+  if( ( ( hnd = GlobalAlloc( GMEM_MOVEABLE, msg.size() + 2 ) ) == nullptr ) ||
+      ( ( tp = (u8*)GlobalLock( hnd ) ) == nullptr ) ){
+    if( hnd )
+      GlobalFree( hnd );
+    CloseClipboard();
+    return false;
+  }
+  
+  memcpy( tp, msg.c_str(), msg.size() );
+  tp[ msg.size() ] = '\0';
+  GlobalUnlock( hnd );
+  if( SetClipboardData( CF_TEXT, tp ) == nullptr ){;
+    CloseClipboard(); 
+    return false;
+  }
+  CloseClipboard(); 
+  return true;
 }

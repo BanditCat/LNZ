@@ -1,4 +1,4 @@
-os.o: os.cpp lnz.hpp strings.hpp os.hpp parser.hpp
+os.o: os.cpp lnz.hpp strings.hpp os.hpp parser.hpp os/windows.hpp
 test.o: test.cpp lnz.hpp strings.hpp test.hpp os.hpp parser.hpp
 main.o: main.cpp lnz.hpp strings.hpp parser.hpp os.hpp test.hpp
 parser.o: parser.cpp lnz.hpp strings.hpp os.hpp parser.hpp

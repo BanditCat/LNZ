@@ -39,20 +39,20 @@ void Test::test( void ) noexcept{
     terminate();
   }
   try{
-    const char* t = nullptr;
+    string t = "";
 
     t = OS::test();
     OS::gout() << Strings::gs({ "testing", "OS", 
-	  t == nullptr ? Strings::gs({ "nullTest" }) : t }) << endl;
+	  t == "" ? Strings::gs({ "nullTest" }) : t }) << endl;
     t = mainTest();
     OS::gout() << Strings::gs({ "testing", "main", 
-	  t == nullptr ? Strings::gs({ "nullTest" }) : t }) << endl;
+	  t == "" ? Strings::gs({ "nullTest" }) : t }) << endl;
     t = Strings::test();
     OS::gout() << Strings::gs({ "testing", "Strings", 
-	  t == nullptr ? Strings::gs({ "nullTest" }) : t }) << endl;
+	  t == "" ? Strings::gs({ "nullTest" }) : t }) << endl;
     t = Parser::test();
     OS::gout() << Strings::gs({ "testing", "Parser", 
-	  t == nullptr ? Strings::gs({ "nullTest" }) : t }) << endl;
+	  t == "" ? Strings::gs({ "nullTest" }) : t }) << endl;
 
   }catch( const exception& e ){
     OS::gout() << Strings::gs({ "testException", e.what() }) << endl;

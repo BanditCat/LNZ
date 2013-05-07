@@ -38,7 +38,7 @@ public:
 
   void insert( const std::string& ) noexcept;
 
-  static const char* test( void ) noexcept( false );
+  static std::string test( void ) noexcept( false );
 private:
   struct pParser;
   pParser* p;
@@ -46,4 +46,3 @@ private:
 
 
 #endif // LNZ_PARSER_HPP
-

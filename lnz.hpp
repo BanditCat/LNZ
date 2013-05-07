@@ -114,6 +114,6 @@ public:
 
 // The function that tests main gets declared here so it can get called in 
 // Test::test().
-const char* mainTest( void );
+std::string mainTest( void );
 
 #endif //LNZ_LNZ_HPP

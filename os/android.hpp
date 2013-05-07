@@ -19,72 +19,46 @@
 // (bcj1980@gmail.com) for details.                                           //
 ////////////////////////////////////////////////////////////////////////////////
 
-// Parsing class. 
+// This is the android specific code. Include this in os.cpp.
 
+#include <ctime>
 
-
-#include <iostream>
-#include <cstdlib>
-#include <unordered_map>
-#include <stack>
-
-#include "lnz.hpp"
-#include "os.hpp"
-#include "parser.hpp"
-
-using namespace std;
-
-
-struct Parser::pParser{
-  unordered_map< string, word > symbols;
-  deque< string > reverseSymbols;
-  word refs;
-
-  void insert( const string& name ) noexcept{
-    symbols[ name ] = symbols.size();
-    reverseSymbols.emplace_back( name );
+bool OS::yesOrNo( const string& question, const string& header ) noexcept{
+  OS::gout() << "\n\n\t" << header << endl << question << endl <<
+    Strings::gs({ "yesOrNoPrompt" });
+  char cs[ 2 ] = { 0, 0 };
+  cs[ 0 ] = OS::gin().get();
+  string c = cs;
+  while( c != Strings::gs({ "yesChar" }) && c != Strings::gs({ "noChar" }) ){
+    OS::gout() << endl << Strings::gs({ "yesOrNoPrompt" });
+    cs[ 0 ] = OS::gin().get();
+    c = cs;
   }
-  pParser* deref( void ) noexcept{
-    if( refs != 1 ){
-      --refs;
-      return new pParser( *this );
-    }else
-      return this;
-  }
-   
-
-  pParser( void ) noexcept : symbols(), reverseSymbols(), refs( 0 ){
-    OS::gerr() << "    Constructing pParser..." << endl;
-  }
- 
-  pParser( const pParser& c ) noexcept : 
-  symbols( c.symbols ), reverseSymbols( c.reverseSymbols ), refs( 0 ){
-    OS::gerr() << "    Copy constructing pParser..." << endl;
-  }
-  ~pParser( void ) noexcept{
-    OS::gerr() << "    Destructing pParser..." << endl;
-  }
-};
-
-
-Parser::Parser( void ) noexcept{
-  OS::gerr() << "  Constructing Parser..." <<endl;
-  p = new pParser;
-  ++p->refs;
+  return c == Strings::gs({ "yesChar" });
 }
-Parser::Parser( const Parser& cp ) noexcept{
-  OS::gerr() << "  Copy constructing Parser..." <<endl;
-  p = cp.p;
-  ++p->refs;
+bool OS::setClip( const string& ) noexcept{
+  return false;
 }
-Parser::~Parser( void ) noexcept{
-  if( !--p->refs ) delete p;
-  OS::gerr() << "  Destructing Parser..." << endl;
+
+u64 OS::time( void ) noexcept{
+  struct timespec ts;
+  clock_gettime( CLOCK_MONOTONIC, &ts );
+  return ts.tv_sec * 1000000000 + ts.tv_nsec;
 }
-void Parser::insert( const string& name ) noexcept{
-  p = p->deref();
-  p->insert( name );
+u64 OS::cpuTime( void ) noexcept{
+  struct timespec ts;
+  clock_gettime( CLOCK_PROCESS_CPUTIME_ID, &ts );
+  return ts.tv_sec * 1000000000 + ts.tv_nsec;
 }
-string Parser::test( void ){
-  return "";
+u64 OS::timesPerSecond( void ) noexcept{
+  struct timespec ts;
+  if( clock_getres( CLOCK_MONOTONIC, &ts ) || ts.tv_sec )
+    return 1;
+  return 1000000000 / ( ts.tv_nsec );
+}
+u64 OS::cpuTimesPerSecond( void ) noexcept{
+  struct timespec ts;
+  if( clock_getres( CLOCK_PROCESS_CPUTIME_ID, &ts ) || ts.tv_sec )
+    return 1;
+  return 1000000000 / ( ts.tv_nsec );
 }
