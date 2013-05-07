@@ -95,6 +95,22 @@ class lnzFileException 105,3794
   inline virtual ~lnzFileException(lnzFileException::~lnzFileException108,3929
 std::string mainTest(117,4130
 
+os/android.hpp,166
+bool OS::yesOrNo(26,1702
+bool OS::setClip(39,2183
+u64 OS::time(43,2246
+u64 OS::cpuTime(48,2388
+u64 OS::timesPerSecond(53,2542
+u64 OS::cpuTimesPerSecond(59,2717
+
+os/windows.hpp,166
+u64 OS::time(26,1706
+u64 OS::cpuTime(31,1815
+u64 OS::timesPerSecond(37,2064
+u64 OS::cpuTimesPerSecond(42,2185
+bool OS::yesOrNo(46,2251
+bool OS::setClip(52,2485
+
 test.cpp,54
 using namespace std;31,1739
 void Test::test(35,1763

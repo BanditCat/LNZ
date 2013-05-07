@@ -210,20 +210,21 @@ u64 OS::timeDifference( u64 start, u64 end ) noexcept{
 string OS::test( void ){
   OS& os = *theOS;
 
-  u64 q = os.cpuTimesPerSecond();
   u64 p = os.cpuTime();
   u64 pt = os.time();
   u32 t;
   u32 ts[ 1000 ] = { 0 };
-  while( os.timeDifference( p, os.cpuTime() ) < q / 10 ){
+  while( os.timeDifference( p, os.cpuTime() ) < os.cpuTimesPerSecond() / 10 ){
     t = 0;
     while( t < 1000 )
       ++ts[ t++ ];
   }
-  pt = os.timeDifference( pt, os.time() );
-  
+  double pf = os.timeDifference( p, os.cpuTime() ) / 
+    double( os.cpuTimesPerSecond() );
+  double ptf = os.timeDifference( pt, os.time() ) / 
+    double( os.timesPerSecond() );
   ostringstream ans;
-  ans << ts[ ts[ 0 ] % 1000 ] / 100.0 << " bogomips at ";
-  ans << os.timesPerSecond() * 10.0 / pt << "% realtime.";
+  ans << ts[ ts[ 0 ] % 1000 ] / ( pf * 1000.0 ) << " bogomips in ";
+  ans << ptf << " seconds and " << pf << " cpu seconds ";
   return ans.str();
 }

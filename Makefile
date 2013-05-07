@@ -46,7 +46,7 @@ OSNAME=android
 endif
 
 # Actual build rules.
-SRCS=$(wildcard ./*.hpp) $(wildcard ./*.cpp)
+SRCS=$(wildcard ./*.hpp) $(wildcard ./*/*.hpp) $(wildcard ./*.cpp)
 CPPS=$(wildcard ./*.cpp)
 OBJS=$(CPPS:.cpp=.o)
 $(OBJS): Makefile
@@ -86,10 +86,14 @@ debug: CPPFLAGS:=$(TARGETDEFINE) -DDEBUG $(CPPFLAGS)
 clean:
 	rm -f ./*.o $(TARGET)
 
-.PHONY: backu
+.PHONY: backup
 backup:
 	make -C ../ backup
 
 .PHONY: depend
 depend:
 	gcc -std=c++11 $(TARGETDEFINE) -MM $(CPPS) > ./deps
+
+.PHONY: run
+run: all
+	./$(TARGET)

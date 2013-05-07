@@ -20,6 +20,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 
+Set up icon.
 
 Occasionally grep through source for BUGBUG, TODO
 
@@ -51,9 +52,3 @@ Write FullInt and StateMachine class, then Tokenizer and Parser.
   Strings::gs.  This makes it easier to internationalize or spell check and
   saves recompiles.
 
-
-
-
-
-
-Setup repositories for the rest of my code (vislib et al)

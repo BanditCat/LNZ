@@ -30,11 +30,9 @@ u64 OS::time( void ) noexcept{
 }
 u64 OS::cpuTime( void ) noexcept{
   FILETIME ct, et, kt, ut;
-  u64 kt64, ut64;
   GetProcessTimes( GetCurrentProcess(), &ct, &et, &kt, &ut );
-  kt64 = ( u64( kt.dwHighDateTime ) << 32 ) + kt.dwLowDateTime;
-  ut64 = ( u64( ut.dwHighDateTime ) << 32 ) + ut.dwLowDateTime;
-  return kt64 + ut64;
+  return ( u64( ut.dwHighDateTime ) << 32 ) + ut.dwLowDateTime +
+    ( u64( kt.dwHighDateTime ) << 32 ) + kt.dwLowDateTime;
 }
 u64 OS::timesPerSecond( void ) noexcept{
   LARGE_INTEGER li;
