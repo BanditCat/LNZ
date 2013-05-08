@@ -40,7 +40,7 @@ void Test::test( void ) noexcept{
   }
   try{
     string t = "";
-
+    
     t = OS::test();
     OS::gout() << Strings::gs({ "testing", "OS", 
 	  t == "" ? Strings::gs({ "nullTest" }) : t }) << endl;

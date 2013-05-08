@@ -52,8 +52,11 @@ public:
   // This intercativley prompts the user with a yes or no question. 
   bool yesOrNo( const std::string& question, const std::string& header )
     noexcept;
-  // Sets the contents of the clipboard.  Returns false on failure.
+  // Sets the contents of the clipboard.  Returns false on failure.  Embedded
+  // nulls are not supported.
   bool setClip( const std::string& ) noexcept;
+  // Returns the contents of the clipboard or "" on error.
+  std::string getClip( void ) noexcept;
 
   // This gets standard in in one big chunk, buffering by fileBufferSize bytes.
   // Throws a lnzFileException on error (which should never happen).

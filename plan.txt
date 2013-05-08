@@ -50,5 +50,5 @@ Write FullInt and StateMachine class, then Tokenizer and Parser.
 
 * 5) User-facing strings should go in strings.cpp and be accessed by
   Strings::gs.  This makes it easier to internationalize or spell check and
-  saves recompiles.
+  saves recompiles. 
 

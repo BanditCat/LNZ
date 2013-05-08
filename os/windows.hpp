@@ -52,9 +52,8 @@ bool OS::yesOrNo( const string& question, const string& header ) noexcept{
 bool OS::setClip( const string& msg ) noexcept{
   void* hnd;
   u8* tp = nullptr;
-  if( !OpenClipboard( nullptr ) ){
+  if( !OpenClipboard( nullptr ) )
     return false;
-  }
   if( !EmptyClipboard() ){
     CloseClipboard();
     return false;
@@ -70,10 +69,33 @@ bool OS::setClip( const string& msg ) noexcept{
   memcpy( tp, msg.c_str(), msg.size() );
   tp[ msg.size() ] = '\0';
   GlobalUnlock( hnd );
-  if( SetClipboardData( CF_TEXT, tp ) == nullptr ){;
+  if( SetClipboardData( CF_TEXT, tp ) == nullptr ){
     CloseClipboard(); 
     return false;
   }
   CloseClipboard(); 
   return true;
+}
+string OS::getClip( void ) noexcept{
+  if ( !IsClipboardFormatAvailable( CF_TEXT ) ) 
+    return ""; 
+  if( !OpenClipboard( nullptr ) )
+    return "";
+  void* hnd = GetClipboardData( CF_TEXT );
+  if( hnd == nullptr  ){
+    CloseClipboard();
+    return "";
+  }
+  const char* clp = (const char*)( GlobalLock( hnd ) );
+  string ans = "";
+  if( clp != nullptr && GlobalSize( hnd ) >= 2 ){
+    // Not sure why this is -2, but it is.
+    if( clp[ GlobalSize( hnd ) - 2 ] != '\0' )
+      ans = string( clp, GlobalSize( hnd ) - 1 );
+    else
+      ans = string( clp, GlobalSize( hnd ) - 2 );
+    GlobalUnlock( hnd );
+  }
+  CloseClipboard();
+  return ans;
 }

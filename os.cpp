@@ -209,22 +209,70 @@ u64 OS::timeDifference( u64 start, u64 end ) noexcept{
 
 string OS::test( void ){
   OS& os = *theOS;
+  u32 numTests = 0;
 
-  u64 p = os.cpuTime();
-  u64 pt = os.time();
-  u32 t;
-  u32 ts[ 1000 ] = { 0 };
-  while( os.timeDifference( p, os.cpuTime() ) < os.cpuTimesPerSecond() / 10 ){
-    t = 0;
-    while( t < 1000 )
-      ++ts[ t++ ];
+  // die.
+  {
+    bool suc = false;
+    try{
+      os.die( "foo" );
+    }catch( const lnzException& le ){
+      suc = true;
+    }
+    if( !suc )
+      return Strings::gs({ "failed!", "OS::die" });
+    ++numTests;
   }
-  double pf = os.timeDifference( p, os.cpuTime() ) / 
-    double( os.cpuTimesPerSecond() );
-  double ptf = os.timeDifference( pt, os.time() ) / 
-    double( os.timesPerSecond() );
-  ostringstream ans;
-  ans << ts[ ts[ 0 ] % 1000 ] / ( pf * 1000.0 ) << " bogomips in ";
-  ans << ptf << " seconds and " << pf << " cpu seconds ";
-  return ans.str();
+      
+  // get/setClip.
+  {
+    string storeClip = os.getClip();
+    os.gout() << storeClip << endl;
+    char tst[ 3 ][ 2049 ] = { 0 };
+    for( int i = 0; i < 2048; ++i ){
+      tst[ 0 ][ i ] = char( i );
+      if( !tst[ 0 ][ i ] ) ++tst[ 0 ][ i ];
+      tst[ 1 ][ i ] = 190 - char( i );
+      if( !tst[ 1 ][ i ] ) ++tst[ 0 ][ i ];
+      tst[ 2 ][ i ] = char( i ) + 55;
+      if( !tst[ 2 ][ i ] ) ++tst[ 0 ][ i ];
+    }
+    for( int i = 0; i < 100; ++i ){
+      for( int k = 0; k < 3; ++k ){
+	string tststr( tst[ k ], 2048 );
+	if( !os.setClip( tststr ) )
+	  return Strings::gs({ "failed!", "OS::setClip" });
+	if( os.getClip() != tststr )
+	  return Strings::gs({ "failed!", "OS::getClip" });
+      }
+    }
+    if( !os.setClip( storeClip ) )
+      return Strings::gs({ "failed!", "OS::setClip" });
+    if( os.getClip() != storeClip )
+      return Strings::gs({ "failed!", "OS::getClip" });
+    ++numTests;
+  }
+
+  // Timers and finish.
+  {
+    u64 startCpuTime = os.cpuTime();
+    u64 startTime = os.time();
+    u32 ticks;
+    u32 tickbuf[ 1000 ] = { 0 };
+    while( os.timeDifference( startCpuTime, os.cpuTime() ) < 
+	   os.cpuTimesPerSecond() / 10 ){
+      ticks = 0;
+      while( ticks < 1000 )
+	++tickbuf[ ticks++ ]; 
+    }
+    double cpuTimed = os.timeDifference( startCpuTime, os.cpuTime() ) / 
+      double( os.cpuTimesPerSecond() );
+    double timed = os.timeDifference( startTime, os.time() ) / 
+      double( os.timesPerSecond() );
+    ostringstream ans;
+    ans << Strings::gs({ "osTestPassed", asString( numTests ), 
+	  asString( tickbuf[ tickbuf[ 0 ] % 1000 ] / ( cpuTimed * 1000.0 ) ),
+	  asString( 100.0 * cpuTimed / timed ) });
+    return ans.str();
+  }
 }

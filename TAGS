@@ -27,7 +27,7 @@ class Parser{Parser33,1783
   struct pParser;Parser::pParser43,1994
   pParser* p;Parser::p44,2012
 
-os.hpp,1810
+os.hpp,1854
 #define LNZ_OS_HPP25,1656
 void* operator new(operator new33,1841
 void* operator new[](operator new[]34,1904
@@ -42,33 +42,34 @@ class OS{OS46,2391
   ~OS(OS::~OS49,2426
   void die(OS::die51,2472
   bool yesOrNo(OS::yesOrNo53,2597
-  bool setClip(OS::setClip56,2752
-  std::string getStandardIn(OS::getStandardIn60,2949
-  std::string getFile(OS::getFile63,3124
-  void putFile(OS::putFile66,3305
-  void putStandardOut(OS::putStandardOut70,3495
-  u64 time(OS::time74,3599
-  u64 cpuTime(OS::cpuTime75,3628
-  u64 timesPerSecond(OS::timesPerSecond76,3660
-  u64 cpuTimesPerSecond(OS::cpuTimesPerSecond77,3699
-  u64 timeDifference(OS::timeDifference78,3741
-  static void* lnzmalloc(OS::lnzmalloc82,3868
-  static void lnzfree(OS::lnzfree83,3913
-  static inline OS& gos(OS::gos87,3974
-  static inline std::ostream& gout(OS::gout88,4024
-  static inline std::ostream& gerr(OS::gerr89,4083
-  static inline std::istream& gin(OS::gin90,4142
-  static inline bool gexistent(OS::gexistent91,4199
-  static std::string test(OS::test93,4267
-  static inline const size_t& getMallocCount(OS::getMallocCount95,4333
-  static inline const size_t& getFreeCount(OS::getFreeCount98,4426
-  static OS* theOS;OS::theOS104,4532
-  static std::ostream* out;OS::out105,4552
-  static std::ostream* err;OS::err106,4580
-  static std::istream* in;OS::in107,4608
-  static size_t mallocCount;OS::mallocCount109,4648
-  static size_t freeCount;OS::freeCount110,4677
-  static bool mallocCounting;OS::mallocCounting111,4704
+  bool setClip(OS::setClip57,2792
+  std::string getClip(OS::getClip59,2898
+  std::string getStandardIn(OS::getStandardIn63,3088
+  std::string getFile(OS::getFile66,3263
+  void putFile(OS::putFile69,3444
+  void putStandardOut(OS::putStandardOut73,3634
+  u64 time(OS::time77,3738
+  u64 cpuTime(OS::cpuTime78,3767
+  u64 timesPerSecond(OS::timesPerSecond79,3799
+  u64 cpuTimesPerSecond(OS::cpuTimesPerSecond80,3838
+  u64 timeDifference(OS::timeDifference81,3880
+  static void* lnzmalloc(OS::lnzmalloc85,4007
+  static void lnzfree(OS::lnzfree86,4052
+  static inline OS& gos(OS::gos90,4113
+  static inline std::ostream& gout(OS::gout91,4163
+  static inline std::ostream& gerr(OS::gerr92,4222
+  static inline std::istream& gin(OS::gin93,4281
+  static inline bool gexistent(OS::gexistent94,4338
+  static std::string test(OS::test96,4406
+  static inline const size_t& getMallocCount(OS::getMallocCount98,4472
+  static inline const size_t& getFreeCount(OS::getFreeCount101,4565
+  static OS* theOS;OS::theOS107,4671
+  static std::ostream* out;OS::out108,4691
+  static std::ostream* err;OS::err109,4719
+  static std::istream* in;OS::in110,4747
+  static size_t mallocCount;OS::mallocCount112,4787
+  static size_t freeCount;OS::freeCount113,4816
+  static bool mallocCounting;OS::mallocCounting114,4843
 
 lnz.hpp,800
 #define LNZ_LNZ_HPP26,1730
@@ -103,13 +104,14 @@ u64 OS::cpuTime(48,2388
 u64 OS::timesPerSecond(53,2542
 u64 OS::cpuTimesPerSecond(59,2717
 
-os/windows.hpp,166
+os/windows.hpp,194
 u64 OS::time(26,1706
 u64 OS::cpuTime(31,1815
 u64 OS::timesPerSecond(37,2064
 u64 OS::cpuTimesPerSecond(42,2185
 bool OS::yesOrNo(46,2251
 bool OS::setClip(52,2485
+string OS::getClip(79,3136
 
 test.cpp,54
 using namespace std;31,1739
@@ -118,7 +120,7 @@ void Test::test(35,1763
 main.cpp,73
 using namespace std;39,1834
 int main(43,1883
-string mainTest(181,5938
+string mainTest(180,5937
 
 parser.cpp,685
 using namespace std;35,1785
@@ -169,10 +171,10 @@ void OS::putStandardOut(183,5660
 u64 OS::timeDifference(194,6133
 string OS::test(210,6426
 
-strings.cpp,237
+strings.cpp,238
 using namespace std;32,1838
 const char* Strings::memoryError 34,1860
 const char* Strings::fatalOSError 35,1941
 const unordered_map< string, string > Strings::strings 37,2012
-string Strings::gs(98,4596
-string Strings::test(135,5380
+string Strings::gs(101,4741
+string Strings::test(138,5525

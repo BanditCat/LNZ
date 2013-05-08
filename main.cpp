@@ -43,7 +43,6 @@ using namespace std;
 int main( int argc, char* argv[] ) noexcept{
   OS os;
   int ret = EXIT_SUCCESS;
-
   try{
     string name = Strings::gs({ "unknownName" });
     deque< string > args;
