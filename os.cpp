@@ -227,7 +227,7 @@ string OS::test( void ){
   // get/setClip.
   {
     string storeClip = os.getClip();
-    os.gout() << storeClip << endl;
+
     char tst[ 3 ][ 2049 ] = { 0 };
     for( int i = 0; i < 2048; ++i ){
       tst[ 0 ][ i ] = char( i );
@@ -241,15 +241,15 @@ string OS::test( void ){
       for( int k = 0; k < 3; ++k ){
 	string tststr( tst[ k ], 2048 );
 	if( !os.setClip( tststr ) )
-	  return Strings::gs({ "failed!", "OS::setClip" });
+	  return Strings::gs({ "failed!", "OS::setClip1" });
 	if( os.getClip() != tststr )
-	  return Strings::gs({ "failed!", "OS::getClip" });
+	  return Strings::gs({ "failed!", "OS::getClip1" });
       }
     }
     if( !os.setClip( storeClip ) )
-      return Strings::gs({ "failed!", "OS::setClip" });
+      return Strings::gs({ "failed!", "OS::setClip2" });
     if( os.getClip() != storeClip )
-      return Strings::gs({ "failed!", "OS::getClip" });
+      return Strings::gs({ "failed!", "OS::getClip2" });
     ++numTests;
   }
 

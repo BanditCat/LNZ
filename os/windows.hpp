@@ -89,7 +89,7 @@ string OS::getClip( void ) noexcept{
   const char* clp = (const char*)( GlobalLock( hnd ) );
   string ans = "";
   if( clp != nullptr && GlobalSize( hnd ) >= 2 ){
-    // Not sure why this is -2, but it is.
+    // Not sure why this is weird like this, but it is.
     if( clp[ GlobalSize( hnd ) - 2 ] != '\0' )
       ans = string( clp, GlobalSize( hnd ) - 1 );
     else

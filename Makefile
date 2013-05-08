@@ -38,6 +38,9 @@ ifeq ($(UNAME), MINGW32_NT-6.1 )
 TARGET=lnz.exe
 TARGETDEFINE=-DWINDOWS
 OSNAME=windows
+OBJS:=$(OBJS) windowsResource.o
+windowsResource.o: windowsResource.rc bcj.ico
+	windres $< -o $@
 endif
 ifeq ($(UNAME), Linux )
 TARGET=lnz
@@ -46,9 +49,9 @@ OSNAME=android
 endif
 
 # Actual build rules.
-SRCS=$(wildcard ./*.hpp) $(wildcard ./*/*.hpp) $(wildcard ./*.cpp)
-CPPS=$(wildcard ./*.cpp)
-OBJS=$(CPPS:.cpp=.o)
+SRCS:=$(SRCS) $(wildcard ./*.hpp) $(wildcard ./*/*.hpp) $(wildcard ./*.cpp)
+CPPS:=$(CPPS) $(wildcard ./*.cpp)
+OBJS:=$(OBJS) $(CPPS:.cpp=.o)
 $(OBJS): Makefile
 include deps
 
