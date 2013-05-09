@@ -24,7 +24,7 @@
 
 #include <iostream>
 #include <cstdlib>
-#include <exception>
+#include <exception> 
 #include <string>
 #include <deque>
 #include <fstream>
@@ -46,7 +46,7 @@ int main( int argc, char* argv[] ) noexcept{
   try{
     string name = Strings::gs({ "unknownName" });
     deque< string > args;
-
+ 
     // Barf on null argv.
     if( argv == nullptr )
       throw lnzException( Strings::gs({ "nullCommandLineOSError" }) );

@@ -39,6 +39,8 @@ TARGET=lnz.exe
 TARGETDEFINE=-DWINDOWS
 OSNAME=windows
 OBJS:=$(OBJS) windowsResource.o
+CPPFLAGS:=$(CPPFLAGS) -mwindows
+LDFLAGS:=$(LDFLAGS) -mwindows
 windowsResource.o: windowsResource.rc bcj.ico
 	windres $< -o $@
 endif

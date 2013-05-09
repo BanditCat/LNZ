@@ -105,22 +105,22 @@ u64 OS::timesPerSecond(53,2542
 u64 OS::cpuTimesPerSecond(59,2717
 
 os/windows.hpp,194
-u64 OS::time(26,1706
-u64 OS::cpuTime(31,1815
-u64 OS::timesPerSecond(37,2064
-u64 OS::cpuTimesPerSecond(42,2185
-bool OS::yesOrNo(46,2251
-bool OS::setClip(52,2485
-string OS::getClip(79,3136
+u64 OS::time(28,1708
+u64 OS::cpuTime(33,1817
+u64 OS::timesPerSecond(39,2066
+u64 OS::cpuTimesPerSecond(44,2187
+bool OS::yesOrNo(48,2253
+bool OS::setClip(54,2487
+string OS::getClip(81,3138
 
 test.cpp,54
 using namespace std;31,1739
 void Test::test(35,1763
 
 main.cpp,73
-using namespace std;39,1834
-int main(43,1883
-string mainTest(180,5937
+using namespace std;39,1835
+int main(43,1884
+string mainTest(180,5939
 
 parser.cpp,685
 using namespace std;35,1785
@@ -167,9 +167,9 @@ void OS::die(130,3835
 string OS::getFile(135,3970
 string OS::getStandardIn(156,4642
 void OS::putFile(169,5089
-void OS::putStandardOut(183,5660
-u64 OS::timeDifference(194,6133
-string OS::test(210,6426
+void OS::putStandardOut(184,5675
+u64 OS::timeDifference(196,6170
+string OS::test(212,6463
 
 strings.cpp,238
 using namespace std;32,1838

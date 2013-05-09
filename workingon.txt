@@ -1,1 +1,1 @@
-LNZ0.1a OS and Strings unit tests.
+LNZ0.1a OS File tests and OS::deleteFile.

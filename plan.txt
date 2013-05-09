@@ -40,7 +40,9 @@ Write FullInt and StateMachine class, then Tokenizer and Parser.
 * 3) Testing: Classes should have a static member test function that is the unit
   test. Place it at the end of the source file for consistency. Make it report
   timing and be sure to thoroughly check edge cases. Calling Test::test calls
-  the other unit tests.
+  the other unit tests.  In general unit tests should return Strings::gs({
+  "nTestsPassed", asString( numTests ) }) or Strings::gs({ "failed!", "<function
+  name><unique identifying integer> }).
 
 * 4) Input and output: Use OS::gerr(), OS::gin() and OS::gout() over cerr, cin
   and cout.

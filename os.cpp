@@ -179,6 +179,7 @@ void OS::putFile( const string& filename, const string& data )
       throw lnzFileException( Strings::gs({ "fileWriteError", filename }) );
   }else
     throw lnzFileException( Strings::gs({ "fileOpenError", filename }) );
+  ofs.flush();
 }
 void OS::putStandardOut( const string& data ) throw( lnzFileException ){
   if( OS::gout().good() ){
@@ -189,6 +190,7 @@ void OS::putStandardOut( const string& data ) throw( lnzFileException ){
   }else
     throw lnzFileException( Strings::gs({ "fileOpenError", 
 	    Strings::gs({ "standardOutput" }) }) );
+  OS::gout().flush();
 }
 // This works on the domain of unsigned integers even with overflow. 
 u64 OS::timeDifference( u64 start, u64 end ) noexcept{
@@ -211,6 +213,7 @@ string OS::test( void ){
   OS& os = *theOS;
   u32 numTests = 0;
 
+  
   // die.
   {
     bool suc = false;
@@ -224,6 +227,37 @@ string OS::test( void ){
     ++numTests;
   }
       
+  // File operations.
+  {
+    bool suc = false;
+    try{
+      os.getFile( "lnzTestFile.txt" );
+    }catch( const lnzFileException& lfe ){
+      suc = true;
+    }
+    if( !suc )
+      return Strings::gs({ "failed!", "OS::getFile1" });
+    ++numTests;
+    char tst[ 2048 ];
+    for( int i = 0; i < 2048; ++i )
+      tst[ i ] = char( i % 256 ); 
+    try{
+      os.putFile( "lnzTestFile.txt", string( tst, 2048 ) );
+    }catch( const lnzFileException& lfe ){
+      return Strings::gs({ "failed!", "OS::putFile1" });
+    }
+    ++numTests;
+    string gf;
+    try{
+      gf = os.getFile( "lnzTestFile.txt" );
+    }catch( const lnzFileException& lfe ){
+      return Strings::gs({ "failed!", "OS::getFile2" });
+    }
+    if( gf != string( tst, 2048 ) )
+      return Strings::gs({ "failed!", gf });
+    ++numTests;
+  }
+
   // get/setClip.
   {
     string storeClip = os.getClip();
