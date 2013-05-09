@@ -131,18 +131,16 @@ void OS::die( const string& msg ) throw( lnzException ){
   throw lnzException( msg );
 }
 
-// This theoretically handles embedded '\0's.
 string OS::getFile( const string& filename ) throw( lnzFileException ){
   if( !filename.size() )
     throw lnzFileException( Strings::gs({ "emptyFileName" }) );
-  ifstream ifs( filename );
+  ifstream ifs( filename, ios::binary );
   if( ifs.is_open() ){
     ostringstream oss;
     char buf[ fileBufferSize + 1 ];
     while( ifs.good() ){
       ifs.read( buf, fileBufferSize );
-      buf[ ifs.gcount() ] = '\0';                            
-      oss << string( buf, ifs.gcount() );
+      oss.write( buf, ifs.gcount() );
     }
     if( ifs.bad() )
       throw lnzFileException( Strings::gs({ "fileReadError", 
@@ -153,13 +151,13 @@ string OS::getFile( const string& filename ) throw( lnzFileException ){
     throw lnzFileException( Strings::gs({ "fileOpenError", 
 	    filename }) );
 }
+
 string OS::getStandardIn( void ) throw( lnzFileException ){
   ostringstream oss;
   char buf[ fileBufferSize + 1 ];
   while( OS::gin().good() ){
     OS::gin().read( buf, fileBufferSize );
-    buf[ OS::gin().gcount() ] = '\0';                      
-    oss << string( buf, OS::gin().gcount() );
+    oss.write( buf, OS::gin().gcount() );
   }
   if( OS::gin().bad() )
     throw lnzFileException( Strings::gs({ "fileReadError", 
@@ -172,9 +170,9 @@ void OS::putFile( const string& filename, const string& data )
     throw lnzFileException( Strings::gs({ "emptyFileName" }) );
   if( bool( ifstream( filename ) ) )
     throw lnzFileException( Strings::gs({ "fileExistsError", filename }) );
-  ofstream ofs( filename );
+  ofstream ofs( filename, ios::binary );
   if( ofs.is_open() ){
-    ofs.write( data.c_str(), data.size() );
+    ofs.write( data.data(), data.size() );
     if( ofs.bad() )
       throw lnzFileException( Strings::gs({ "fileWriteError", filename }) );
   }else
@@ -183,7 +181,7 @@ void OS::putFile( const string& filename, const string& data )
 }
 void OS::putStandardOut( const string& data ) throw( lnzFileException ){
   if( OS::gout().good() ){
-    OS::gout().write( data.c_str(), data.size() );
+    OS::gout().write( data.data(), data.size() );
     if( OS::gout().bad() )
       throw lnzFileException( Strings::gs({ "fileWriteError", 
 	      Strings::gs({ "standardOutput" }) }) );
@@ -231,7 +229,7 @@ string OS::test( void ){
   {
     bool suc = false;
     try{
-      os.getFile( "lnzTestFile.txt" );
+      os.getFile( "lnzTestFile.bin" );
     }catch( const lnzFileException& lfe ){
       suc = true;
     }
@@ -242,20 +240,22 @@ string OS::test( void ){
     for( int i = 0; i < 2048; ++i )
       tst[ i ] = char( i % 256 ); 
     try{
-      os.putFile( "lnzTestFile.txt", string( tst, 2048 ) );
+      os.putFile( "lnzTestFile.bin", string( tst, 2048 ) );
     }catch( const lnzFileException& lfe ){
       return Strings::gs({ "failed!", "OS::putFile1" });
     }
     ++numTests;
     string gf;
     try{
-      gf = os.getFile( "lnzTestFile.txt" );
+      gf = os.getFile( "lnzTestFile.bin" );
     }catch( const lnzFileException& lfe ){
       return Strings::gs({ "failed!", "OS::getFile2" });
     }
     if( gf != string( tst, 2048 ) )
-      return Strings::gs({ "failed!", gf });
+      return Strings::gs({ "failed!", "OS::getFile3" });
     ++numTests;
+    if( remove( "lnzTestFile.bin" ) )
+      return Strings::gs({ "failed!", "std::remove" });
   }
 
   // get/setClip.

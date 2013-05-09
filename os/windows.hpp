@@ -24,6 +24,30 @@
 #include <windows.h>
 
 
+string dgetFile( const string& filename ) throw( lnzFileException ){
+  HANDLE fh = CreateFile( filename.c_str(), GENERIC_READ, FILE_SHARE_READ,
+			  nullptr, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL,
+			  nullptr );
+  if( fh == INVALID_HANDLE_VALUE )
+    throw lnzFileException( Strings::gs({ "fileOpenError", filename }) );
+  DWORD fszh;
+  u32 fszl = GetFileSize( fh, &fszh );
+  if( fszl == 0xFFFFFFFF && GetLastError() != NO_ERROR ){
+    CloseHandle( fh );
+    throw lnzFileException( Strings::gs({ "fileReadError", filename }) );
+  }
+  size_t fsz = ( u64( fszh ) << 32 ) + fszl;
+  char* buf = new char[ fsz ];
+  DWORD rd;
+  if( !ReadFile( fh, buf, fsz, &rd, nullptr ) ){
+    CloseHandle( fh );
+    throw lnzFileException( Strings::gs({ "fileReadError", filename }) );
+  }
+  CloseHandle( fh );
+  string ans = string( buf, int( fsz ) );
+  delete[] buf;
+  return ans;
+}
 
 u64 OS::time( void ) noexcept{
   LARGE_INTEGER li;

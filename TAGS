@@ -104,14 +104,15 @@ u64 OS::cpuTime(48,2388
 u64 OS::timesPerSecond(53,2542
 u64 OS::cpuTimesPerSecond(59,2717
 
-os/windows.hpp,194
-u64 OS::time(28,1708
-u64 OS::cpuTime(33,1817
-u64 OS::timesPerSecond(39,2066
-u64 OS::cpuTimesPerSecond(44,2187
-bool OS::yesOrNo(48,2253
-bool OS::setClip(54,2487
-string OS::getClip(81,3138
+os/windows.hpp,220
+string dgetFile(27,1707
+u64 OS::time(52,2574
+u64 OS::cpuTime(57,2683
+u64 OS::timesPerSecond(63,2932
+u64 OS::cpuTimesPerSecond(68,3053
+bool OS::yesOrNo(72,3119
+bool OS::setClip(78,3353
+string OS::getClip(105,4004
 
 test.cpp,54
 using namespace std;31,1739
@@ -164,12 +165,12 @@ void* operator new(operator new116,3474
 void operator delete(operator delete119,3568
 void operator delete(operator delete122,3634
 void OS::die(130,3835
-string OS::getFile(135,3970
-string OS::getStandardIn(156,4642
-void OS::putFile(169,5089
-void OS::putStandardOut(184,5675
-u64 OS::timeDifference(196,6170
-string OS::test(212,6463
+string OS::getFile(134,3924
+string OS::getStandardIn(155,4544
+void OS::putFile(167,4927
+void OS::putStandardOut(182,5525
+u64 OS::timeDifference(194,6019
+string OS::test(210,6312
 
 strings.cpp,238
 using namespace std;32,1838

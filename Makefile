@@ -35,7 +35,13 @@ LDFLAGS=
 # OS Detection.
 UNAME=$(shell uname) 
 ifeq ($(UNAME), MINGW32_NT-6.1 )
-TARGET=lnz.exe
+
+# I'm experiencing a bug where after using rm on the target, it gets locked
+# for a few minutes.  This is a workaround.
+TARGET:=$(shell tname=0; if touch lnz.exe; then echo lnz.exe; else while !\
+	 touch lnz$$tname.exe; do tname=$$((tname + 1)); done; fi; echo \
+	lnz$$tname.exe; )
+
 TARGETDEFINE=-DWINDOWS
 OSNAME=windows
 OBJS:=$(OBJS) windowsResource.o
@@ -88,9 +94,13 @@ debug: CPPFLAGS:=$(TARGETDEFINE) -DDEBUG $(CPPFLAGS)
 
 
 .PHONY: clean
+ifeq ($(OSNAME), windows)
 clean:
-	rm -f ./*.o $(TARGET)
-
+	rm -f ./*.o ./*.exe || true
+else
+clean:
+	rm -f ./*.o ./$(TARGET)
+endif
 .PHONY: backup
 backup:
 	make -C ../ backup
