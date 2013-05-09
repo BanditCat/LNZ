@@ -136,5 +136,28 @@ string Strings::gs( initializer_list< string > args ) noexcept{
   return ans.str();
 }
 string Strings::test( void ){
-  return "";
+  int numTests = 0;
+  if( gs({ "failed!", "foo" }) == "failed!" )
+    return "BORK!BORK!";
+  ++numTests;
+  if( gs({ "foo", "bar" }) != "foo" )
+    return gs({ "failed!", "Strings::gs0" });
+  ++numTests;
+  if( gs({ "foo%1", "bar" }) != "foobar" )
+    return gs({ "failed!", "Strings::gs1" });
+  ++numTests;
+  if( gs({ "foo%1" }) != "foo" )
+    return gs({ "failed!", "Strings::gs2" });
+  ++numTests;
+  if( gs({ "foo" }) != "foo" )
+    return gs({ "failed!", "Strings::gs3" });
+  ++numTests;
+  if( gs({ "%2foo", "bar" }) != "foo" )
+    return gs({ "failed!", "Strings::gs4" });
+  ++numTests;
+  if( gs({ "%2%5%1%3%4", "A", "B", "C", "D", "E" }) != "BEACD" )
+    return gs({ "failed!", "Strings::gs5" });
+  ++numTests;
+  
+  return gs({ "nTestsPassed", asString( numTests ) });
 }
