@@ -36,8 +36,8 @@ const char* Strings::fatalOSError = "Fatal OS error! Irrecoverable!";
 
 const unordered_map< string, string > Strings::strings = {
   { "failed!", "%1 failed!" },
-  { "osTestPassed", "%1 tests passed. %2 bogomips at %3%% realtime." },
-  { "nTestsPassed", "%1 tests passed." },
+  { "osTestPassed", "All %1 tests passed. %2 bogomips at %3%% realtime." },
+  { "nTestsPassed", "All %1 tests passed." },
   { "unknownName", "<unknown name>" },
   { "nullTest", "Failure: test does not exist!" },
   { "expressionFlag", "-e" },

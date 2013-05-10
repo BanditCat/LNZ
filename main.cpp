@@ -38,10 +38,15 @@
 
 using namespace std;
 
-//BUGBUG
-#include <time.h>
+// We fake main so we can test it more easily.
+int lnzMain( int, char** ) noexcept;
 int main( int argc, char* argv[] ) noexcept{
   OS os;
+  return lnzMain( argc, argv );
+}
+
+int lnzMain( int argc, char* argv[] ) noexcept{
+  OS& os = OS::gos();
   int ret = EXIT_SUCCESS;
   try{
     string name = Strings::gs({ "unknownName" });
@@ -161,7 +166,7 @@ int main( int argc, char* argv[] ) noexcept{
       os.setClip( e.what() );
     ret = EXIT_FAILURE;
   }
- 
+  
 #ifdef DEBUG 
   {
     size_t ac = os.getMallocCount();

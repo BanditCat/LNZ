@@ -1,1 +1,1 @@
-LNZ0.1a OS File tests, iso::binary (herp derp) and Makefile workaround for exe locks.
+LNZ0.1a Testing gin, gout and lnzMain.

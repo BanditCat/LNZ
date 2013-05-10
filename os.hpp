@@ -87,7 +87,9 @@ public:
   
 
   // Accessors.
-  static inline OS& gos( void ){ return *theOS; }
+  static inline OS& gos( void ){ 
+    return *theOS;
+  }
   static inline std::ostream& gout( void ){ return *out; }
   static inline std::ostream& gerr( void ){ return *err; }
   static inline std::istream& gin( void ){ return *in; }

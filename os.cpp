@@ -143,13 +143,11 @@ string OS::getFile( const string& filename ) throw( lnzFileException ){
       oss.write( buf, ifs.gcount() );
     }
     if( ifs.bad() )
-      throw lnzFileException( Strings::gs({ "fileReadError", 
-	      filename }) );
+      throw lnzFileException( Strings::gs({ "fileReadError", filename }) );
     else
       return oss.str();
   }else
-    throw lnzFileException( Strings::gs({ "fileOpenError", 
-	    filename }) );
+    throw lnzFileException( Strings::gs({ "fileOpenError", filename }) );
 }
 
 string OS::getStandardIn( void ) throw( lnzFileException ){
