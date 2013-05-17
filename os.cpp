@@ -88,6 +88,7 @@ void OS::lnzfree( void* p ) noexcept{
   free( p ); 
 }
 
+// GCC compatibility.
 #ifdef _GLIBCXX_THROW
 void* operator new( size_t sz ) _GLIBCXX_THROW( std::bad_alloc ){ 
   return OS::lnzmalloc( sz ); 

@@ -34,14 +34,8 @@ LDFLAGS=
 
 # OS Detection.
 UNAME=$(shell uname) 
-ifeq ($(UNAME), MINGW32_NT-6.1 )
-
-# I'm experiencing a bug where after using rm on the target, it gets locked
-# for a few minutes.  This is a workaround.
-TARGET:=$(shell tname=0; if touch -a lnz.exe; then echo lnz.exe; else while !\
-	 touch -a lnz$$tname.exe; do tname=$$((tname + 1)); done; fi; echo \
-	lnz$$tname.exe; )
-
+ifeq ($(UNAME), MINGW32_NT-6.2 )
+TARGET=lnz.exe
 TARGETDEFINE=-DWINDOWS
 OSNAME=windows
 OBJS:=$(OBJS) windowsResource.o
