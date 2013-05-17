@@ -88,13 +88,9 @@ debug: CPPFLAGS:=$(TARGETDEFINE) -DDEBUG $(CPPFLAGS)
 
 
 .PHONY: clean
-ifeq ($(OSNAME), windows)
-clean:
-	rm -f ./*.o ./*.exe || true
-else
 clean:
 	rm -f ./*.o ./$(TARGET)
-endif
+
 .PHONY: backup
 backup:
 	make -C ../ backup

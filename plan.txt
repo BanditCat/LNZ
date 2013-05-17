@@ -20,6 +20,11 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 
+Unit tests: start with the hard one, lnzMain.  Move timing to Test and make
+more comprehensive, with separate floating point and integer tests.
+
+Write threading tests in OS (low priority).
+
 Occasionally grep through source for BUGBUG, TODO
 
 Write FullInt and StateMachine class, then Tokenizer and Parser.

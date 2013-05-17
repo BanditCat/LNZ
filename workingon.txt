@@ -1,1 +1,1 @@
-LNZ0.1a Testing gin, gout and lnzMain.
+LNZ0.1a Setting up remote development environment for phone.
