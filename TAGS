@@ -142,7 +142,7 @@ Parser::~Parser(80,2844
 void Parser::insert(84,2960
 string Parser::test(88,3053
 
-os.cpp,976
+os.cpp,977
 using namespace std;35,1802
 size_t OS::mallocCount 39,1848
 size_t OS::freeCount 40,1876
@@ -155,23 +155,23 @@ OS::OS(49,2069
 OS::~OS(63,2311
 void* OS::lnzmalloc(69,2390
 void OS::lnzfree(83,2662
-void* operator new(operator new92,2808
-void* operator new[](operator new[]95,2908
-void* operator new(operator new99,3015
-void* operator new[](operator new[]102,3105
-void* operator new[](operator new[]107,3224
-void operator delete[](operator delete[]110,3320
-void operator delete[](operator delete[]113,3388
-void* operator new(operator new116,3474
-void operator delete(operator delete119,3568
-void operator delete(operator delete122,3634
-void OS::die(130,3835
-string OS::getFile(134,3924
-string OS::getStandardIn(153,4530
-void OS::putFile(165,4913
-void OS::putStandardOut(180,5511
-u64 OS::timeDifference(192,6005
-string OS::test(208,6298
+void* operator new(operator new93,2830
+void* operator new[](operator new[]96,2930
+void* operator new(operator new100,3037
+void* operator new[](operator new[]103,3127
+void* operator new[](operator new[]108,3246
+void operator delete[](operator delete[]111,3342
+void operator delete[](operator delete[]114,3410
+void* operator new(operator new117,3496
+void operator delete(operator delete120,3590
+void operator delete(operator delete123,3656
+void OS::die(131,3857
+string OS::getFile(135,3946
+string OS::getStandardIn(154,4552
+void OS::putFile(166,4935
+void OS::putStandardOut(181,5533
+u64 OS::timeDifference(193,6027
+string OS::test(209,6320
 
 strings.cpp,238
 using namespace std;32,1838
