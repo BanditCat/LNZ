@@ -41,8 +41,13 @@ using namespace std;
 // We fake main so we can test it more easily.
 int lnzMain( int, char** ) noexcept;
 int main( int argc, char* argv[] ) noexcept{
-  OS os;
-  return lnzMain( argc, argv );
+  try{
+    OS os;
+    return lnzMain( argc, argv );
+  } catch( const lnzException& le ){
+    cerr << Strings::gs({ "osInitError", le.what() }) << endl;
+  }
+  return EXIT_FAILURE;
 }
 
 int lnzMain( int argc, char* argv[] ) noexcept{

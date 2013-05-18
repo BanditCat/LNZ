@@ -19,7 +19,6 @@
 // (bcj1980@gmail.com) for details.                                           //
 ////////////////////////////////////////////////////////////////////////////////
 
-
 Unit tests: start with the hard one, lnzMain.  Move timing to Test and make
 more comprehensive, with separate floating point and integer tests.
 
@@ -47,7 +46,9 @@ Write FullInt and StateMachine class, then Tokenizer and Parser.
   timing and be sure to thoroughly check edge cases. Calling Test::test calls
   the other unit tests.  In general unit tests should return Strings::gs({
   "nTestsPassed", asString( numTests ) }) or Strings::gs({ "failed!", "<function
-  name><unique identifying integer> }).
+  name><unique identifying integer> }).  Debug mode should run intetactive tests
+  and generate a report if none exists, or compare to an existing report and not
+  run interactive tests that already passed.
 
 * 4) Input and output: Use OS::gerr(), OS::gin() and OS::gout() over cerr, cin
   and cout.
@@ -59,3 +60,5 @@ Write FullInt and StateMachine class, then Tokenizer and Parser.
 * 6) Versioning: versioning is achieved through git messages. They have the
   format LNZa.bc where a and b are numbers and c is an optional character
   specifing status. windowsResource.rc has the Windows versioning information.
+  
+* 7) Android: use static function pointers and the JNI.

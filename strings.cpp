@@ -35,6 +35,7 @@ const char* Strings::memoryError = "Memory error! You are probably out of RAM!";
 const char* Strings::fatalOSError = "Fatal OS error! Irrecoverable!";
 
 const unordered_map< string, string > Strings::strings = {
+  { "osInitError", "OS initialization failed: %1" },
   { "failed!", "%1 failed!" },
   { "osTestPassed", "All %1 tests passed. %2 bogomips at %3%% realtime." },
   { "nTestsPassed", "All %1 tests passed." },

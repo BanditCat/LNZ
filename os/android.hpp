@@ -21,7 +21,8 @@
 
 // This is the android specific code. Include this in os.cpp.
 
-#include <ctime>
+#include <jni.h>
+#include <ctime> 
 
 bool OS::yesOrNo( const string& question, const string& header ) noexcept{
   OS::gout() << "\n\n\t" << header << endl << question << endl <<
@@ -36,10 +37,13 @@ bool OS::yesOrNo( const string& question, const string& header ) noexcept{
   }
   return c == Strings::gs({ "yesChar" });
 }
+// BUGBUG
 bool OS::setClip( const string& ) noexcept{
   return false;
 }
-
+string OS::getClip( void ) noexcept{
+  return "foo";
+}
 u64 OS::time( void ) noexcept{
   struct timespec ts;
   clock_gettime( CLOCK_MONOTONIC, &ts );

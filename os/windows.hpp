@@ -23,7 +23,8 @@
 
 #include <windows.h>
 
-
+void OS::init( void ) noexcept( false ){}
+void OS::destroy( void ){}
 u64 OS::time( void ) noexcept{
   LARGE_INTEGER li;
   QueryPerformanceCounter( &li );

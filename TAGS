@@ -27,7 +27,7 @@ class Parser{Parser33,1783
   struct pParser;Parser::pParser43,1994
   pParser* p;Parser::p44,2012
 
-os.hpp,1855
+os.hpp,1923
 #define LNZ_OS_HPP25,1656
 void* operator new(operator new33,1841
 void* operator new[](operator new[]34,1904
@@ -38,38 +38,40 @@ void* operator new[](operator new[]41,2174
 void operator delete(operator delete42,2238
 void operator delete[](operator delete[]43,2278
 class OS{OS46,2391
-  OS(OS::OS48,2409
-  ~OS(OS::~OS49,2426
-  void die(OS::die51,2472
-  bool yesOrNo(OS::yesOrNo53,2597
-  bool setClip(OS::setClip57,2792
-  std::string getClip(OS::getClip59,2898
-  std::string getStandardIn(OS::getStandardIn63,3088
-  std::string getFile(OS::getFile66,3263
-  void putFile(OS::putFile69,3444
-  void putStandardOut(OS::putStandardOut73,3634
-  u64 time(OS::time77,3738
-  u64 cpuTime(OS::cpuTime78,3767
-  u64 timesPerSecond(OS::timesPerSecond79,3799
-  u64 cpuTimesPerSecond(OS::cpuTimesPerSecond80,3838
-  u64 timeDifference(OS::timeDifference81,3880
-  static void* lnzmalloc(OS::lnzmalloc85,4007
-  static void lnzfree(OS::lnzfree86,4052
-  static inline OS& gos(OS::gos90,4113
-  static inline std::ostream& gout(OS::gout93,4170
-  static inline std::ostream& gerr(OS::gerr94,4229
-  static inline std::istream& gin(OS::gin95,4288
-  static inline bool gexistent(OS::gexistent96,4345
-  static std::string test(OS::test98,4413
-  static inline const size_t& getMallocCount(OS::getMallocCount100,4479
-  static inline const size_t& getFreeCount(OS::getFreeCount103,4572
-  static OS* theOS;OS::theOS109,4678
-  static std::ostream* out;OS::out110,4698
-  static std::ostream* err;OS::err111,4726
-  static std::istream* in;OS::in112,4754
-  static size_t mallocCount;OS::mallocCount114,4794
-  static size_t freeCount;OS::freeCount115,4823
-  static bool mallocCounting;OS::mallocCounting116,4850
+  OS(OS::OS49,2446
+  ~OS(OS::~OS50,2472
+  void die(OS::die52,2518
+  bool yesOrNo(OS::yesOrNo54,2643
+  bool setClip(OS::setClip58,2838
+  std::string getClip(OS::getClip60,2944
+  std::string getStandardIn(OS::getStandardIn64,3134
+  std::string getFile(OS::getFile67,3309
+  void putFile(OS::putFile70,3490
+  void putStandardOut(OS::putStandardOut74,3680
+  u64 time(OS::time78,3784
+  u64 cpuTime(OS::cpuTime79,3813
+  u64 timesPerSecond(OS::timesPerSecond80,3845
+  u64 cpuTimesPerSecond(OS::cpuTimesPerSecond81,3884
+  u64 timeDifference(OS::timeDifference82,3926
+  static void* lnzmalloc(OS::lnzmalloc86,4053
+  static void lnzfree(OS::lnzfree87,4098
+  static inline OS& gos(OS::gos91,4159
+  static inline std::ostream& gout(OS::gout94,4216
+  static inline std::ostream& gerr(OS::gerr95,4275
+  static inline std::istream& gin(OS::gin96,4334
+  static inline bool gexistent(OS::gexistent97,4391
+  static std::string test(OS::test99,4459
+  static inline const size_t& getMallocCount(OS::getMallocCount101,4525
+  static inline const size_t& getFreeCount(OS::getFreeCount104,4618
+  void init(OS::init111,4798
+  void destroy(OS::destroy112,4837
+  static OS* theOS;OS::theOS114,4923
+  static std::ostream* out;OS::out115,4943
+  static std::ostream* err;OS::err116,4971
+  static std::istream* in;OS::in117,4999
+  static size_t mallocCount;OS::mallocCount119,5039
+  static size_t freeCount;OS::freeCount120,5068
+  static bool mallocCounting;OS::mallocCounting121,5095
 
 lnz.hpp,800
 #define LNZ_LNZ_HPP26,1730
@@ -96,22 +98,25 @@ class lnzFileException 105,3794
   inline virtual ~lnzFileException(lnzFileException::~lnzFileException108,3929
 std::string mainTest(117,4130
 
-os/android.hpp,166
-bool OS::yesOrNo(26,1702
-bool OS::setClip(39,2183
-u64 OS::time(43,2246
-u64 OS::cpuTime(48,2388
-u64 OS::timesPerSecond(53,2542
-u64 OS::cpuTimesPerSecond(59,2717
+os/android.hpp,194
+bool OS::yesOrNo(27,1720
+bool OS::setClip(41,2211
+string OS::getClip(44,2273
+u64 OS::time(47,2328
+u64 OS::cpuTime(52,2470
+u64 OS::timesPerSecond(57,2624
+u64 OS::cpuTimesPerSecond(63,2799
 
-os/windows.hpp,194
-u64 OS::time(27,1707
-u64 OS::cpuTime(32,1816
-u64 OS::timesPerSecond(38,2065
-u64 OS::cpuTimesPerSecond(43,2186
-bool OS::yesOrNo(47,2252
-bool OS::setClip(53,2486
-string OS::getClip(80,3137
+os/windows.hpp,243
+void OS::init(26,1706
+void OS::destroy(27,1748
+u64 OS::time(28,1775
+u64 OS::cpuTime(33,1884
+u64 OS::timesPerSecond(39,2133
+u64 OS::cpuTimesPerSecond(44,2254
+bool OS::yesOrNo(48,2320
+bool OS::setClip(54,2554
+string OS::getClip(81,3205
 
 test.cpp,54
 using namespace std;31,1739
@@ -121,8 +126,8 @@ main.cpp,115
 using namespace std;39,1835
 int lnzMain(42,1904
 int main(43,1941
-int lnzMain(48,2030
-string mainTest(185,6102
+int lnzMain(53,2168
+string mainTest(190,6240
 
 parser.cpp,685
 using namespace std;35,1785
@@ -152,31 +157,31 @@ ostream* OS::out 44,1967
 ostream* OS::err 45,1995
 istream* OS::in 46,2023
 OS::OS(49,2069
-OS::~OS(63,2311
-void* OS::lnzmalloc(69,2390
-void OS::lnzfree(83,2662
-void* operator new(operator new93,2830
-void* operator new[](operator new[]96,2930
-void* operator new(operator new100,3037
-void* operator new[](operator new[]103,3127
-void* operator new[](operator new[]108,3246
-void operator delete[](operator delete[]111,3342
-void operator delete[](operator delete[]114,3410
-void* operator new(operator new117,3496
-void operator delete(operator delete120,3590
-void operator delete(operator delete123,3656
-void OS::die(131,3857
-string OS::getFile(135,3946
-string OS::getStandardIn(154,4552
-void OS::putFile(166,4935
-void OS::putStandardOut(181,5533
-u64 OS::timeDifference(193,6027
-string OS::test(209,6320
+OS::~OS(64,2332
+void* OS::lnzmalloc(71,2424
+void OS::lnzfree(85,2696
+void* operator new(operator new95,2864
+void* operator new[](operator new[]98,2964
+void* operator new(operator new102,3071
+void* operator new[](operator new[]105,3161
+void* operator new[](operator new[]110,3280
+void operator delete[](operator delete[]113,3376
+void operator delete[](operator delete[]116,3444
+void* operator new(operator new119,3530
+void operator delete(operator delete122,3624
+void operator delete(operator delete125,3690
+void OS::die(133,3891
+string OS::getFile(137,3980
+string OS::getStandardIn(156,4586
+void OS::putFile(168,4969
+void OS::putStandardOut(183,5567
+u64 OS::timeDifference(195,6061
+string OS::test(211,6354
 
 strings.cpp,238
 using namespace std;32,1838
 const char* Strings::memoryError 34,1860
 const char* Strings::fatalOSError 35,1941
 const unordered_map< string, string > Strings::strings 37,2012
-string Strings::gs(101,4749
-string Strings::test(138,5533
+string Strings::gs(102,4802
+string Strings::test(139,5586

@@ -46,21 +46,23 @@ ostream* OS::err = nullptr;
 istream* OS::in = nullptr;
 
 // NO ALLOCATION!
-OS::OS( void ) noexcept{
+OS::OS( void ) noexcept( false ){
+#ifdef DEBUG
+  OS::mallocCounting = true;
+#endif
   if( theOS == nullptr ){
     theOS = this;
     out = &cout;
     in = &cin;
     err = &cerr;
+    init();
   }else{
     cerr << Strings::fatalOSError << endl;
     terminate();
   }
-#ifdef DEBUG
-  OS::mallocCounting = true;
-#endif
 }
 OS::~OS( void ) noexcept{
+  destroy();
 #ifdef DEBUG
   OS::mallocCounting = false;
 #endif
@@ -261,7 +263,7 @@ string OS::test( void ){
   {
     string storeClip = os.getClip();
 
-    char tst[ 3 ][ 2049 ] = { 0 };
+    char tst[ 3 ][ 2049 ] = { { 0 } };
     for( int i = 0; i < 2048; ++i ){
       tst[ 0 ][ i ] = char( i );
       if( !tst[ 0 ][ i ] ) ++tst[ 0 ][ i ];
@@ -286,7 +288,7 @@ string OS::test( void ){
     ++numTests;
   }
 
-  // Timers and finish.  BUGBUG move to Test.
+  // Timers and finish. BUGBUG move to Test.
   {
     u64 startCpuTime = os.cpuTime();
     u64 startTime = os.time();

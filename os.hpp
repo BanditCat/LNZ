@@ -45,7 +45,8 @@ void operator delete[]( void* ) noexcept;
 // This is a singleton class: you can and must only instantiate once.
 class OS{
 public:
-  OS() noexcept;
+  // The os specific init can throw.
+  OS() noexcept( false );
   ~OS() noexcept;
   // Throws a lnzException.
   void die( const std::string& ) throw( lnzException );
@@ -106,6 +107,10 @@ public:
 #endif
 
 private:
+  // These are the platform specific initialization and cleanup routines.
+  void init( void ) noexcept( false );
+  void destroy( void ) noexcept;
+  // This is a pointer to the single instance of OS.
   static OS* theOS;
   static std::ostream* out;
   static std::ostream* err;
