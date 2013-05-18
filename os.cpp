@@ -286,7 +286,7 @@ string OS::test( void ){
     ++numTests;
   }
 
-  // Timers and finish.
+  // Timers and finish.  BUGBUG move to Test.
   {
     u64 startCpuTime = os.cpuTime();
     u64 startTime = os.time();
