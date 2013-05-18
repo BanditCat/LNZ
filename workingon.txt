@@ -1,1 +1,1 @@
-LNZ0.1a Finishing touches on merge from phone.
+LNZ0.1a Initialization and cleanup, console checking, no err stream.  CRASHES ON NO CONSOLE ON WINDOWS!

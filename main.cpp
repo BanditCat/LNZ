@@ -78,7 +78,7 @@ int lnzMain( int argc, char* argv[] ) noexcept{
 	// Parse -e
 	if( args[ i ] == Strings::gs({ "expressionFlag" }) ){
 	  if( i + 1 >= args.size() || !args[ i + 1 ].size() ){
-	    OS::gerr() << Strings::gs({ "expressionFlagError" }) << endl;
+	    OS::gout() << Strings::gs({ "expressionFlagError" }) << endl;
 	    help = true;
 	    ret = EXIT_FAILURE;
 	    break;
@@ -92,7 +92,7 @@ int lnzMain( int argc, char* argv[] ) noexcept{
 	  // Parse -o
 	}else if( args[ i ] == Strings::gs({ "outFileFlag" }) ){
 	  if( i + 1 >= args.size() || !args[ i + 1 ].size() ){
-	    OS::gerr() << Strings::gs({ "outFileFlagError" }) << endl;
+	    OS::gout() << Strings::gs({ "outFileFlagError" }) << endl;
 	    help = true;
 	    ret = EXIT_FAILURE;
 	    break;
@@ -108,7 +108,7 @@ int lnzMain( int argc, char* argv[] ) noexcept{
 	}else if( args[ i ] == Strings::gs({ "helpFlag" }) ||
 		  ( args[ i ].size() >= 2 && args[ i ][ 0 ] == '-' ) ){
 	  if( args[ i ] != Strings::gs({ "helpFlag" }) )
-	    OS::gerr() << Strings::gs({ "flagError", args[ i ] }) << endl;
+	    OS::gout() << Strings::gs({ "flagError", args[ i ] }) << endl;
 	  help = true;
 	  break;
 	}else{
@@ -137,7 +137,7 @@ int lnzMain( int argc, char* argv[] ) noexcept{
 	  }
 	}
       }catch( const lnzFileException& lfe ){
-	OS::gerr() << lfe.what() << endl;
+	OS::gout() << lfe.what() << endl;
 	return EXIT_FAILURE;
       }
         
@@ -158,15 +158,14 @@ int lnzMain( int argc, char* argv[] ) noexcept{
 	  else
 	    os.putFile( outFiles[ i ], out.str() );
 	}catch( const lnzFileException& lfe ){
-	  OS::gerr() << lfe.what() << endl;
+	  OS::gout() << lfe.what() << endl;
 	  ret = EXIT_FAILURE;
 	}
       }
     }
   }catch( const exception& e ){
-    bool copy = os.yesOrNo( string( e.what() ) + "\n\n" +
-			    Strings::gs({ "clipboardQuestion" }) + "\n",
-			    Strings::gs({ "fatalError" }) );
+    bool copy = OS::yesOrNo( string( e.what() ) + "\n\n" +
+			     Strings::gs({ "clipboardQuestion" }) + "\n" );
     if( copy )
       os.setClip( e.what() );
     ret = EXIT_FAILURE;
@@ -177,9 +176,9 @@ int lnzMain( int argc, char* argv[] ) noexcept{
     size_t ac = os.getMallocCount();
     size_t fc = os.getFreeCount();
     size_t lc = ac - fc;
-    OS::gerr() << Strings::gs({ "memoryAllocations", asString( ac ) }) << endl;
-    OS::gerr() << Strings::gs({ "memoryFrees", asString( fc ) }) << endl;
-    OS::gerr() << Strings::gs({ "memoryLeaks", asString( lc ) }) << endl;
+    OS::gout() << Strings::gs({ "memoryAllocations", asString( ac ) }) << endl;
+    OS::gout() << Strings::gs({ "memoryFrees", asString( fc ) }) << endl;
+    OS::gout() << Strings::gs({ "memoryLeaks", asString( lc ) }) << endl;
   }
 #endif
   

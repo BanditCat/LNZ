@@ -35,6 +35,8 @@ const char* Strings::memoryError = "Memory error! You are probably out of RAM!";
 const char* Strings::fatalOSError = "Fatal OS error! Irrecoverable!";
 
 const unordered_map< string, string > Strings::strings = {
+  { "messageHeader", "A message:" },
+  { "questionHeader", "A question:" },
   { "osInitError", "OS initialization failed: %1" },
   { "failed!", "%1 failed!" },
   { "osTestPassed", "All %1 tests passed. %2 bogomips at %3%% realtime." },
@@ -102,13 +104,12 @@ const unordered_map< string, string > Strings::strings = {
 string Strings::gs( initializer_list< string > args ) noexcept{
   string base;
   ostringstream ans;
-  // I know this is ugly, but how the heck do I get an index while being 
-  // const and exception safe?
-  try{ 
-    base = strings.at( *args.begin() );
-  }catch( const out_of_range& ){
+  auto bp = strings.find( *args.begin() );
+  if( bp == strings.end() )
     base = *args.begin();
-  }
+  else
+    base = bp->second;
+	
   auto b = base.begin();
   auto e = base.end();
   size_t argn = 0;

@@ -27,7 +27,7 @@ class Parser{Parser33,1783
   struct pParser;Parser::pParser43,1994
   pParser* p;Parser::p44,2012
 
-os.hpp,1923
+os.hpp,1927
 #define LNZ_OS_HPP25,1656
 void* operator new(operator new33,1841
 void* operator new[](operator new[]34,1904
@@ -41,37 +41,37 @@ class OS{OS46,2391
   OS(OS::OS49,2446
   ~OS(OS::~OS50,2472
   void die(OS::die52,2518
-  bool yesOrNo(OS::yesOrNo54,2643
-  bool setClip(OS::setClip58,2838
-  std::string getClip(OS::getClip60,2944
-  std::string getStandardIn(OS::getStandardIn64,3134
-  std::string getFile(OS::getFile67,3309
-  void putFile(OS::putFile70,3490
-  void putStandardOut(OS::putStandardOut74,3680
-  u64 time(OS::time78,3784
-  u64 cpuTime(OS::cpuTime79,3813
-  u64 timesPerSecond(OS::timesPerSecond80,3845
-  u64 cpuTimesPerSecond(OS::cpuTimesPerSecond81,3884
-  u64 timeDifference(OS::timeDifference82,3926
-  static void* lnzmalloc(OS::lnzmalloc86,4053
-  static void lnzfree(OS::lnzfree87,4098
-  static inline OS& gos(OS::gos91,4159
-  static inline std::ostream& gout(OS::gout94,4216
-  static inline std::ostream& gerr(OS::gerr95,4275
-  static inline std::istream& gin(OS::gin96,4334
-  static inline bool gexistent(OS::gexistent97,4391
-  static std::string test(OS::test99,4459
-  static inline const size_t& getMallocCount(OS::getMallocCount101,4525
-  static inline const size_t& getFreeCount(OS::getFreeCount104,4618
-  void init(OS::init111,4798
-  void destroy(OS::destroy112,4837
-  static OS* theOS;OS::theOS114,4923
-  static std::ostream* out;OS::out115,4943
-  static std::ostream* err;OS::err116,4971
-  static std::istream* in;OS::in117,4999
-  static size_t mallocCount;OS::mallocCount119,5039
-  static size_t freeCount;OS::freeCount120,5068
-  static bool mallocCounting;OS::mallocCounting121,5095
+  bool setClip(OS::setClip55,2682
+  std::string getClip(OS::getClip57,2788
+  std::string getStandardIn(OS::getStandardIn61,2978
+  std::string getFile(OS::getFile64,3153
+  void putFile(OS::putFile67,3334
+  void putStandardOut(OS::putStandardOut71,3524
+  u64 time(OS::time75,3628
+  u64 cpuTime(OS::cpuTime76,3657
+  u64 timesPerSecond(OS::timesPerSecond77,3689
+  u64 cpuTimesPerSecond(OS::cpuTimesPerSecond78,3728
+  u64 timeDifference(OS::timeDifference79,3770
+  static bool haveConsole(OS::haveConsole84,4053
+  static void message(OS::message85,4097
+  static bool yesOrNo(OS::yesOrNo86,4155
+  static void* lnzmalloc(OS::lnzmalloc89,4293
+  static void lnzfree(OS::lnzfree90,4338
+  static inline OS& gos(OS::gos94,4399
+  static inline std::ostream& gout(OS::gout97,4456
+  static inline std::istream& gin(OS::gin98,4515
+  static inline bool gexistent(OS::gexistent99,4572
+  static std::string test(OS::test101,4640
+  static inline const size_t& getMallocCount(OS::getMallocCount103,4706
+  static inline const size_t& getFreeCount(OS::getFreeCount106,4799
+  void init(OS::init113,4979
+  void destroy(OS::destroy114,5018
+  static OS* theOS;OS::theOS116,5104
+  static std::ostream* out;OS::out117,5124
+  static std::istream* in;OS::in118,5152
+  static size_t mallocCount;OS::mallocCount120,5192
+  static size_t freeCount;OS::freeCount121,5221
+  static bool mallocCounting;OS::mallocCounting122,5248
 
 lnz.hpp,800
 #define LNZ_LNZ_HPP26,1730
@@ -109,16 +109,19 @@ u64 OS::cpuTime(54,2549
 u64 OS::timesPerSecond(59,2703
 u64 OS::cpuTimesPerSecond(65,2878
 
-os/windows.hpp,243
-void OS::init(26,1706
-void OS::destroy(27,1748
-u64 OS::time(28,1785
-u64 OS::cpuTime(33,1894
-u64 OS::timesPerSecond(39,2143
-u64 OS::cpuTimesPerSecond(44,2264
-bool OS::yesOrNo(48,2330
-bool OS::setClip(54,2564
-string OS::getClip(81,3215
+os/windows.hpp,337
+static bool phaveConsole 27,1725
+void OS::init(28,1759
+void OS::destroy(55,2530
+u64 OS::time(60,2610
+u64 OS::cpuTime(65,2719
+u64 OS::timesPerSecond(71,2968
+u64 OS::cpuTimesPerSecond(76,3089
+bool OS::setClip(80,3155
+string OS::getClip(107,3806
+bool OS::haveConsole(130,4468
+void OS::message(131,4530
+bool OS::yesOrNo(135,4717
 
 test.cpp,54
 using namespace std;31,1739
@@ -129,7 +132,7 @@ using namespace std;39,1835
 int lnzMain(42,1904
 int main(43,1941
 int lnzMain(53,2168
-string mainTest(190,6240
+string mainTest(189,6204
 
 parser.cpp,685
 using namespace std;35,1785
@@ -149,41 +152,40 @@ Parser::~Parser(80,2844
 void Parser::insert(84,2960
 string Parser::test(88,3053
 
-os.cpp,977
+os.cpp,950
 using namespace std;35,1802
 size_t OS::mallocCount 39,1848
 size_t OS::freeCount 40,1876
 bool OS::mallocCounting 41,1902
 OS* OS::theOS 43,1942
 ostream* OS::out 44,1967
-ostream* OS::err 45,1995
-istream* OS::in 46,2023
-OS::OS(49,2069
-OS::~OS(64,2332
-void* OS::lnzmalloc(71,2424
-void OS::lnzfree(85,2696
-void* operator new(operator new95,2864
-void* operator new[](operator new[]98,2964
-void* operator new(operator new102,3071
-void* operator new[](operator new[]105,3161
-void* operator new[](operator new[]110,3280
-void operator delete[](operator delete[]113,3376
-void operator delete[](operator delete[]116,3444
-void* operator new(operator new119,3530
-void operator delete(operator delete122,3624
-void operator delete(operator delete125,3690
-void OS::die(133,3891
-string OS::getFile(137,3980
-string OS::getStandardIn(156,4586
-void OS::putFile(168,4969
-void OS::putStandardOut(183,5567
-u64 OS::timeDifference(195,6061
-string OS::test(211,6354
+istream* OS::in 45,1995
+OS::OS(48,2041
+OS::~OS(62,2287
+void* OS::lnzmalloc(69,2379
+void OS::lnzfree(82,2619
+void* operator new(operator new92,2787
+void* operator new[](operator new[]95,2887
+void* operator new(operator new99,2994
+void* operator new[](operator new[]102,3084
+void* operator new[](operator new[]107,3203
+void operator delete[](operator delete[]110,3299
+void operator delete[](operator delete[]113,3367
+void* operator new(operator new116,3453
+void operator delete(operator delete119,3547
+void operator delete(operator delete122,3613
+void OS::die(130,3814
+string OS::getFile(134,3903
+string OS::getStandardIn(153,4509
+void OS::putFile(165,4892
+void OS::putStandardOut(180,5490
+u64 OS::timeDifference(192,5984
+string OS::test(208,6277
 
 strings.cpp,238
 using namespace std;32,1838
 const char* Strings::memoryError 34,1860
 const char* Strings::fatalOSError 35,1941
 const unordered_map< string, string > Strings::strings 37,2012
-string Strings::gs(102,4802
-string Strings::test(139,5586
+string Strings::gs(104,4878
+string Strings::test(140,5575

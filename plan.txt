@@ -20,7 +20,8 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 Unit tests: start with the hard one, lnzMain.  Move timing to Test and make
-more comprehensive, with separate floating point and integer tests.
+more comprehensive, with separate floating point and integer tests.  Do a 
+fixed amount of work instead of using a fixed amount of time.
 
 Write threading tests in OS (low priority).
 
@@ -50,8 +51,8 @@ Write FullInt and StateMachine class, then Tokenizer and Parser.
   and generate a report if none exists, or compare to an existing report and not
   run interactive tests that already passed.
 
-* 4) Input and output: Use OS::gerr(), OS::gin() and OS::gout() over cerr, cin
-  and cout.
+* 4) Input and output: OS::gin() and OS::gout() over cin and cout.  To maintain 
+  compatibility, no use of cerr.
 
 * 5) Strings: User-facing strings should go in strings.cpp and be accessed by
   Strings::gs. This makes it easier to internationalize or spell check and saves

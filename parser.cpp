@@ -54,32 +54,32 @@ struct Parser::pParser{
    
 
   pParser( void ) noexcept : symbols(), reverseSymbols(), refs( 0 ){
-    OS::gerr() << "    Constructing pParser..." << endl;
+    OS::gout() << "    Constructing pParser..." << endl;
   }
  
   pParser( const pParser& c ) noexcept : 
   symbols( c.symbols ), reverseSymbols( c.reverseSymbols ), refs( 0 ){
-    OS::gerr() << "    Copy constructing pParser..." << endl;
+    OS::gout() << "    Copy constructing pParser..." << endl;
   }
   ~pParser( void ) noexcept{
-    OS::gerr() << "    Destructing pParser..." << endl;
+    OS::gout() << "    Destructing pParser..." << endl;
   }
 };
 
 
 Parser::Parser( void ) noexcept{
-  OS::gerr() << "  Constructing Parser..." <<endl;
+  OS::gout() << "  Constructing Parser..." <<endl;
   p = new pParser;
   ++p->refs;
 }
 Parser::Parser( const Parser& cp ) noexcept{
-  OS::gerr() << "  Copy constructing Parser..." <<endl;
+  OS::gout() << "  Copy constructing Parser..." <<endl;
   p = cp.p;
   ++p->refs;
 }
 Parser::~Parser( void ) noexcept{
   if( !--p->refs ) delete p;
-  OS::gerr() << "  Destructing Parser..." << endl;
+  OS::gout() << "  Destructing Parser..." << endl;
 }
 void Parser::insert( const string& name ) noexcept{
   p = p->deref();

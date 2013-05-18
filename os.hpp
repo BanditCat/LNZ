@@ -28,7 +28,7 @@
 
 
 // Override all these to just die on an out of memory condition.
-// This is to fix compptibility with libstdc++ 4.7.2 etc.
+// This is to fix compatibility with libstdc++ 4.7.2 etc.
 #ifdef _GLIBCXX_THROW
 void* operator new( size_t ) _GLIBCXX_THROW( std::bad_alloc );
 void* operator new[]( size_t ) _GLIBCXX_THROW( std::bad_alloc ); 
@@ -50,9 +50,6 @@ public:
   ~OS() noexcept;
   // Throws a lnzException.
   void die( const std::string& ) throw( lnzException );
-  // This intercativley prompts the user with a yes or no question. 
-  bool yesOrNo( const std::string& question, const std::string& header )
-    noexcept;
   // Sets the contents of the clipboard.  Returns false on failure.  Embedded
   // nulls are not supported.
   bool setClip( const std::string& ) noexcept;
@@ -79,8 +76,14 @@ public:
   u64 cpuTime( void ) noexcept;
   u64 timesPerSecond( void ) noexcept;
   u64 cpuTimesPerSecond( void ) noexcept;
-  u64 timeDifference( u64, u64 ) noexcept;
-    
+  u64 timeDifference( u64 start, u64 end ) noexcept;
+  
+  // These functions must be safe to call even with no OS.  The first returns
+  // true iff there is a console attached, and the second communicates in case
+  // there isn't.  The third synchronously asks a yes or no question.
+  static bool haveConsole( void ) noexcept;
+  static void message( const std::string& msg ) noexcept;
+  static bool yesOrNo( const std::string& qstn ) noexcept;
 
   // These are allocation wrapper functions to enable cheesy malloc counting.
   static void* lnzmalloc( size_t ) noexcept;
@@ -92,7 +95,6 @@ public:
     return *theOS;
   }
   static inline std::ostream& gout( void ){ return *out; }
-  static inline std::ostream& gerr( void ){ return *err; }
   static inline std::istream& gin( void ){ return *in; }
   static inline bool gexistent( void ){ return theOS != nullptr; }
 
@@ -113,7 +115,6 @@ private:
   // This is a pointer to the single instance of OS.
   static OS* theOS;
   static std::ostream* out;
-  static std::ostream* err;
   static std::istream* in;
 #ifdef DEBUG
   static size_t mallocCount;

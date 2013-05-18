@@ -33,11 +33,11 @@ using namespace std;
 
 
 void Test::test( void ) noexcept{
-  // if( !OS::gexistent() ){
-  //   // I know this isn't informative, but it is uniquely identifying.
-  //   cerr << "BORK!BORK!BORK!" << endl;
-  //   terminate();
-  // }
+  if( !OS::gexistent() ){
+    // I know this isn't informative, but it is uniquely identifying.
+    OS::message( "BORK!BORK!BORK!" );
+    terminate();
+  }
   try{
     string t = "";
     

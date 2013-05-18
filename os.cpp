@@ -42,7 +42,6 @@ bool OS::mallocCounting = false;
 #endif
 OS* OS::theOS = nullptr;
 ostream* OS::out = nullptr;
-ostream* OS::err = nullptr;
 istream* OS::in = nullptr;
 
 // NO ALLOCATION!
@@ -54,7 +53,6 @@ OS::OS( void ) noexcept( false ){
     theOS = this;
     out = &cout;
     in = &cin;
-    err = &cerr;
     init();
   }else{
     cerr << Strings::fatalOSError << endl;
@@ -71,8 +69,7 @@ OS::~OS( void ) noexcept{
 void* OS::lnzmalloc( size_t sz ) noexcept{
   void* ans = malloc( sz );
   if( ans == nullptr ){
-    if( err != nullptr )
-      *err << Strings::memoryError << endl;
+    message( Strings::memoryError );
     terminate();
   }
 #ifdef DEBUG
