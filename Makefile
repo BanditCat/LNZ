@@ -22,7 +22,7 @@
 
 
 .PHONY: all
-all: debug
+all: depend debug
 
 
 

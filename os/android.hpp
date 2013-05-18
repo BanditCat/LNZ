@@ -24,6 +24,8 @@
 #include <jni.h>
 #include <ctime> 
 
+void OS::init( void ) noexcept( false ){}
+void OS::destroy( void ) noexcept {}
 bool OS::yesOrNo( const string& question, const string& header ) noexcept{
   OS::gout() << "\n\n\t" << header << endl << question << endl <<
     Strings::gs({ "yesOrNoPrompt" });
