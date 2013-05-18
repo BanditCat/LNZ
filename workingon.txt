@@ -1,1 +1,1 @@
-LNZ0.1a Setting up remote development environment for phone.
+LNZ0.1a Unixify that shit, son.

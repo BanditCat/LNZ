@@ -51,6 +51,8 @@ OSNAME=android
 endif
 
 # Actual build rules.
+# These are supposed everything that might be edited.
+TXTS:=$(TXTS) $(wildcard ./*.txt) ./Makefile ./README.md ./LICENSE ./windowsResource.rc
 SRCS:=$(SRCS) $(wildcard ./*.hpp) $(wildcard ./*/*.hpp) $(wildcard ./*.cpp)
 CPPS:=$(CPPS) $(wildcard ./*.cpp)
 OBJS:=$(OBJS) $(CPPS:.cpp=.o)
@@ -102,3 +104,7 @@ depend:
 .PHONY: run
 run: all
 	./$(TARGET)
+
+.PHONY: unixify
+unixify:
+	dos2unix -U $(TXTS) $(SRCS)
