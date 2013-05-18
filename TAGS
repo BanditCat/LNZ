@@ -110,13 +110,13 @@ u64 OS::cpuTimesPerSecond(63,2799
 os/windows.hpp,243
 void OS::init(26,1706
 void OS::destroy(27,1748
-u64 OS::time(28,1775
-u64 OS::cpuTime(33,1884
-u64 OS::timesPerSecond(39,2133
-u64 OS::cpuTimesPerSecond(44,2254
-bool OS::yesOrNo(48,2320
-bool OS::setClip(54,2554
-string OS::getClip(81,3205
+u64 OS::time(28,1785
+u64 OS::cpuTime(33,1894
+u64 OS::timesPerSecond(39,2143
+u64 OS::cpuTimesPerSecond(44,2264
+bool OS::yesOrNo(48,2330
+bool OS::setClip(54,2564
+string OS::getClip(81,3215
 
 test.cpp,54
 using namespace std;31,1739
