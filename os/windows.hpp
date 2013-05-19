@@ -31,7 +31,7 @@ void OS::init( void ) noexcept( false ){
   FILE* fp;
   
   // Blarg windows.  This sets up the console even know this was compiled
-  // with -mwindows.
+  // with -mwindows. BUGBUG crashes with no console.
   AttachConsole( ATTACH_PARENT_PROCESS );
   if( ( stdhnd = (intptr_t)GetStdHandle( STD_OUTPUT_HANDLE ) ) 
       == (intptr_t)INVALID_HANDLE_VALUE )

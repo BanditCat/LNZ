@@ -21,14 +21,15 @@
 
 // This is the android specific code. Include this in os.cpp.
 
-#include <jni.h>
-#include <ctime> 
+#include <ctime>
 
 void OS::init( void ) noexcept( false ){}
 void OS::destroy( void ) noexcept {}
-bool OS::yesOrNo( const string& question, const string& header ) noexcept{
-  OS::gout() << "\n\n\t" << header << endl << question << endl <<
-    Strings::gs({ "yesOrNoPrompt" });
+void OS::message( const string& msg ) noexcept{ 
+  OS::gout() << endl << msg << endl;
+}
+bool OS::yesOrNo( const string& question ) noexcept{
+  OS::gout() << endl << question << endl << Strings::gs({ "yesOrNoPrompt" });
   char cs[ 2 ] = { 0, 0 };
   cs[ 0 ] = OS::gin().get();
   string c = cs;

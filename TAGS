@@ -98,30 +98,31 @@ class lnzFileException 105,3794
   inline virtual ~lnzFileException(lnzFileException::~lnzFileException108,3929
 std::string mainTest(117,4130
 
-os/android.hpp,243
-void OS::init(27,1720
-void OS::destroy(28,1762
-bool OS::yesOrNo(29,1799
-bool OS::setClip(43,2290
-string OS::getClip(46,2352
-u64 OS::time(49,2407
-u64 OS::cpuTime(54,2549
-u64 OS::timesPerSecond(59,2703
-u64 OS::cpuTimesPerSecond(65,2878
+os/android.hpp,269
+void OS::init(26,1702
+void OS::destroy(27,1744
+void OS::message(28,1781
+bool OS::yesOrNo(31,1869
+bool OS::setClip(44,2312
+string OS::getClip(47,2374
+u64 OS::time(50,2429
+u64 OS::cpuTime(55,2571
+u64 OS::timesPerSecond(60,2725
+u64 OS::cpuTimesPerSecond(66,2900
 
 os/windows.hpp,337
 static bool phaveConsole 27,1725
 void OS::init(28,1759
-void OS::destroy(55,2530
-u64 OS::time(60,2610
-u64 OS::cpuTime(65,2719
-u64 OS::timesPerSecond(71,2968
-u64 OS::cpuTimesPerSecond(76,3089
-bool OS::setClip(80,3155
-string OS::getClip(107,3806
-bool OS::haveConsole(130,4468
-void OS::message(131,4530
-bool OS::yesOrNo(135,4717
+void OS::destroy(55,2562
+u64 OS::time(60,2642
+u64 OS::cpuTime(65,2751
+u64 OS::timesPerSecond(71,3000
+u64 OS::cpuTimesPerSecond(76,3121
+bool OS::setClip(80,3187
+string OS::getClip(107,3838
+bool OS::haveConsole(130,4500
+void OS::message(131,4562
+bool OS::yesOrNo(135,4749
 
 test.cpp,54
 using namespace std;31,1739
