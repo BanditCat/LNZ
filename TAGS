@@ -99,16 +99,16 @@ class lnzFileException 105,3794
 std::string mainTest(117,4130
 
 os/android.hpp,269
-void OS::init(26,1702
-void OS::destroy(27,1744
-void OS::message(28,1781
-bool OS::yesOrNo(31,1869
-bool OS::setClip(44,2312
-string OS::getClip(47,2374
-u64 OS::time(50,2429
-u64 OS::cpuTime(55,2571
-u64 OS::timesPerSecond(60,2725
-u64 OS::cpuTimesPerSecond(66,2900
+void OS::init(27,1719
+void OS::destroy(29,1762
+void OS::message(30,1799
+bool OS::yesOrNo(33,1887
+bool OS::setClip(46,2330
+string OS::getClip(49,2392
+u64 OS::time(52,2447
+u64 OS::cpuTime(57,2589
+u64 OS::timesPerSecond(62,2743
+u64 OS::cpuTimesPerSecond(68,2918
 
 os/windows.hpp,337
 static bool phaveConsole 27,1725

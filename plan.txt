@@ -19,6 +19,13 @@
 // (bcj1980@gmail.com) for details.                                           //
 ////////////////////////////////////////////////////////////////////////////////
 
+Goal for v1.0: A < 100 line interactive mandlebrot program written in LNZ that
+runs in an OpenGL VM.
+
+Switch windows build back to console mode to save headaches.
+
+Eliminate all statics and implement argument passing.
+
 Unit tests: start with the hard one, lnzMain.  Move timing to Test and make
 more comprehensive, with separate floating point and integer tests.  Do a 
 fixed amount of work instead of using a fixed amount of time.

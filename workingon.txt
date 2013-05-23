@@ -1,1 +1,1 @@
-LNZ0.1a Compiles on phone. Migrating to NativeActivity.
+LNZ0.1a Test push from new phone set up.

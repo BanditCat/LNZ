@@ -22,8 +22,10 @@
 // This is the android specific code. Include this in os.cpp.
 
 #include <ctime>
+#include <jni.h>
 
-void OS::init( void ) noexcept( false ){}
+void OS::init( void ) noexcept( false ){
+}
 void OS::destroy( void ) noexcept {}
 void OS::message( const string& msg ) noexcept{ 
   OS::gout() << endl << msg << endl;
