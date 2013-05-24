@@ -78,10 +78,7 @@ public:
   u64 cpuTimesPerSecond( void ) noexcept;
   u64 timeDifference( u64 start, u64 end ) noexcept;
   
-  // These functions must be safe to call even with no OS.  The first returns
-  // true iff there is a console attached, and the second communicates in case
-  // there isn't.  The third synchronously asks a yes or no question.
-  static bool haveConsole( void ) noexcept;
+  // These functions must be safe to call even with no OS.  
   static void message( const std::string& msg ) noexcept;
   static bool yesOrNo( const std::string& qstn ) noexcept;
 

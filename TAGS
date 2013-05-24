@@ -27,7 +27,7 @@ class Parser{Parser33,1783
   struct pParser;Parser::pParser43,1994
   pParser* p;Parser::p44,2012
 
-os.hpp,1927
+os.hpp,1875
 #define LNZ_OS_HPP25,1656
 void* operator new(operator new33,1841
 void* operator new[](operator new[]34,1904
@@ -52,26 +52,25 @@ class OS{OS46,2391
   u64 timesPerSecond(OS::timesPerSecond77,3689
   u64 cpuTimesPerSecond(OS::cpuTimesPerSecond78,3728
   u64 timeDifference(OS::timeDifference79,3770
-  static bool haveConsole(OS::haveConsole84,4053
-  static void message(OS::message85,4097
-  static bool yesOrNo(OS::yesOrNo86,4155
-  static void* lnzmalloc(OS::lnzmalloc89,4293
-  static void lnzfree(OS::lnzfree90,4338
-  static inline OS& gos(OS::gos94,4399
-  static inline std::ostream& gout(OS::gout97,4456
-  static inline std::istream& gin(OS::gin98,4515
-  static inline bool gexistent(OS::gexistent99,4572
-  static std::string test(OS::test101,4640
-  static inline const size_t& getMallocCount(OS::getMallocCount103,4706
-  static inline const size_t& getFreeCount(OS::getFreeCount106,4799
-  void init(OS::init113,4979
-  void destroy(OS::destroy114,5018
-  static OS* theOS;OS::theOS116,5104
-  static std::ostream* out;OS::out117,5124
-  static std::istream* in;OS::in118,5152
-  static size_t mallocCount;OS::mallocCount120,5192
-  static size_t freeCount;OS::freeCount121,5221
-  static bool mallocCounting;OS::mallocCounting122,5248
+  static void message(OS::message82,3887
+  static bool yesOrNo(OS::yesOrNo83,3945
+  static void* lnzmalloc(OS::lnzmalloc86,4083
+  static void lnzfree(OS::lnzfree87,4128
+  static inline OS& gos(OS::gos91,4189
+  static inline std::ostream& gout(OS::gout94,4246
+  static inline std::istream& gin(OS::gin95,4305
+  static inline bool gexistent(OS::gexistent96,4362
+  static std::string test(OS::test98,4430
+  static inline const size_t& getMallocCount(OS::getMallocCount100,4496
+  static inline const size_t& getFreeCount(OS::getFreeCount103,4589
+  void init(OS::init110,4769
+  void destroy(OS::destroy111,4808
+  static OS* theOS;OS::theOS113,4894
+  static std::ostream* out;OS::out114,4914
+  static std::istream* in;OS::in115,4942
+  static size_t mallocCount;OS::mallocCount117,4982
+  static size_t freeCount;OS::freeCount118,5011
+  static bool mallocCounting;OS::mallocCounting119,5038
 
 lnz.hpp,800
 #define LNZ_LNZ_HPP26,1730
@@ -110,19 +109,17 @@ u64 OS::cpuTime(57,2589
 u64 OS::timesPerSecond(62,2743
 u64 OS::cpuTimesPerSecond(68,2918
 
-os/windows.hpp,337
-static bool phaveConsole 27,1725
-void OS::init(28,1759
-void OS::destroy(55,2562
-u64 OS::time(60,2642
-u64 OS::cpuTime(65,2751
-u64 OS::timesPerSecond(71,3000
-u64 OS::cpuTimesPerSecond(76,3121
-bool OS::setClip(80,3187
-string OS::getClip(107,3838
-bool OS::haveConsole(130,4500
-void OS::message(131,4562
-bool OS::yesOrNo(135,4749
+os/windows.hpp,271
+void OS::init(26,1706
+void OS::destroy(28,1749
+u64 OS::time(31,1788
+u64 OS::cpuTime(36,1897
+u64 OS::timesPerSecond(42,2146
+u64 OS::cpuTimesPerSecond(47,2267
+bool OS::setClip(51,2333
+string OS::getClip(78,2984
+void OS::message(101,3646
+bool OS::yesOrNo(105,3833
 
 test.cpp,54
 using namespace std;31,1739

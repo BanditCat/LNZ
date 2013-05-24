@@ -22,39 +22,10 @@
 // This is the windows specific code. Include this in os.cpp.
 
 #include <windows.h>
-#include <fcntl.h>
 
-static bool phaveConsole = false;
 void OS::init( void ) noexcept( false ){
-  long hhnd;
-  intptr_t stdhnd;
-  FILE* fp;
-  
-  // Blarg windows.  This sets up the console even know this was compiled
-  // with -mwindows. BUGBUG crashes with no console.
-  AttachConsole( ATTACH_PARENT_PROCESS );
-  if( ( stdhnd = (intptr_t)GetStdHandle( STD_OUTPUT_HANDLE ) ) 
-      == (intptr_t)INVALID_HANDLE_VALUE )
-    phaveConsole = false;
-  else{
-    phaveConsole = true;
-    hhnd = _open_osfhandle( stdhnd, _O_TEXT );
-    fp = _fdopen( hhnd, "w" );
-    *stdout = *fp;
-    setvbuf( stdout, NULL, _IONBF, 0 );
-
-    // stdhnd = (intptr_t)GetStdHandle( STD_INPUT_HANDLE );
-    // hhnd = _open_osfhandle( stdhnd, _O_TEXT );
-    // fp = _fdopen( hhnd, "r" );
-    // *stdin = *fp;
-    // setvbuf( stdin, NULL, _IONBF, 0 );
-
-    ios::sync_with_stdio(); 
-  }
 }
 void OS::destroy( void ) noexcept {
-  FreeConsole();
-  phaveConsole = false;
 }
 
 u64 OS::time( void ) noexcept{
@@ -127,7 +98,6 @@ string OS::getClip( void ) noexcept{
   CloseClipboard();
   return ans;
 }
-bool OS::haveConsole( void ) noexcept{ return phaveConsole; }
 void OS::message( const string& msg ) noexcept{
   MessageBoxA( nullptr, msg.c_str(), Strings::gs({ "messageHeader" }).c_str(), 
 	       MB_OK | MB_ICONINFORMATION | MB_SYSTEMMODAL );  
